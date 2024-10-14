@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" href="estils.css">
+		<link rel="stylesheet" href="../estils.css">
 		<title>Human Resource</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,32 +31,32 @@
 		<div id="content">
 			<div id="menu">
 				<ul>
-					<li><a href="index.php">Home</a></li>
+					<li><a href="../index.php">Home</a></li>
 					<li>
-						<ul> HR
-							<li><a href="employees.php">Employees</a></li>
-							<li><a href="departments.php">Departments</a></li>
-							<li><a href="jobs.php">Jobs</a></li>
+                    <ul> HR
+							<li><a href="../employees/employees.php">Employees</a></li>
+							<li><a href="../departments/departments.php">Departments</a></li>
+							<li><a href="../jobs/jobs.php">Jobs</a></li>
 							<li><a href="locations.php">Locations</a></li>
 						</ul>
 					</li>
 					<li>
 						<ul> OE
-							<li><a href="warehouses.php">Warehouses</a></li>
-							<li><a href="categories.php">Categories</a></li>
-							<li><a href="customers.php">Customers</a></li>
-							<li><a href="products.php">Products</a></li>
-							<li><a href="orders.php">Orders</a></li>
+							<li><a href="../warehouses/warehouses.php">Warehouses</a></li>
+							<li><a href="../categories/categories.php">Categories</a></li>
+							<li><a href="../customers/customers.php">Customers</a></li>
+							<li><a href="../products/products.php">Products</a></li>
+							<li><a href="../orders/orders.php">Orders</a></li>
 						</ul>
 					</li>
 				</ul>
 			</div>
 
 			<div id="section">
-			<h3>Employees</h3>
+			<h3>Departments</h3>
 			<?php
 				// Include config file
-				require_once "config.php";
+				require_once "../config.php";
 				$conn = null;
 				
 				try {
@@ -65,9 +65,9 @@
 					mysqli_autocommit($conn, true);
 					
 					// Attempt select query execution
-					$query = "SELECT employee_id, first_name, last_name, department_name 
-								FROM departments d INNER JOIN employees e ON d.department_id = e.department_id 
-								ORDER BY employee_id";
+					$query = "SELECT l.location_id, city, postal_code, state_province 
+								FROM locations l 
+								ORDER BY l.location_id";
 					$table = mysqli_query($conn, $query);
 					if (mysqli_num_rows($table) > 0) {
 						echo '<table class="table table-bordered table-striped">';
@@ -75,11 +75,11 @@
 							"<thead>" .
 								"<tr>" . 
 									"<th>#</th>"          .
-									"<th>Last Name</th>"  .
-									"<th>First Name</th>" .
-									"<th>Department</th>" .
+									"<th>City</th>"  .
+									"<th>Postal code</th>" .
+									"<th>Province</th>" .
 									"<th>Actions "     .
-									'<a href="employee_new.php' . '" class="mr-2" title="New File" data-toggle="tooltip"><span class="fa fa-pencil-square-o"></span></a>'      . 
+									'<a href="location_new.php' . '" class="mr-2" title="New File" data-toggle="tooltip"><span class="fa fa-pencil-square-o"></span></a>'      . 
 									"</th>" .
 								"</tr>" .
 							"</thead>";
@@ -87,14 +87,14 @@
 								while(null !== ($row = mysqli_fetch_array($table))) {
 									echo 
 										"<tr>" . 
-											"<td>" . $row['employee_id']     . "</td>" .
-											"<td>" . $row['last_name']       . "</td>" .
-											"<td>" . $row['first_name']      . "</td>" .
-											"<td>" . $row['department_name'] . "</td>" .
+											"<td>" . $row['location_id']     . "</td>" .
+											"<td>" . $row['city'] . "</td>" .
+											"<td>" . $row['postal_code']       . "</td>" .
+											"<td>" . $row['state_province']      . "</td>" .
 											"<td>" .
-												'<a href="employee_read.php?id='   . $row['employee_id'] . '" class="mr-2" title="View File" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'      . 
-												'<a href="employee_update.php?id=' . $row['employee_id'] . '" class="mr-2" title="Update File" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>' .
-												'<a href="employee_delete.php?id=' . $row['employee_id'] . '" class="mr-2" title="Delete File" data-toggle="tooltip"><span class="fa fa-trash"></span></a>'               .
+												'<a href="location_read.php?id='   . $row['location_id'] . '" class="mr-2" title="View File" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'      . 
+												'<a href="location_update.php?id=' . $row['location_id'] . '" class="mr-2" title="Update File" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>' .
+												'<a href="location_delete.php?id=' . $row['location_id'] . '" class="mr-2" title="Delete File" data-toggle="tooltip"><span class="fa fa-trash"></span></a>'               .
 											"</td>" .
 										"</tr>";
 								}

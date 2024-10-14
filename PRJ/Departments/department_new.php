@@ -1,6 +1,6 @@
 <?php
 	// Include config file
-	require_once "config.php";
+	require_once "../config.php";
 	$conn = null;
 	$p_ID = $p_last_name = $p_first_name = "";
 	$p_department = 80;

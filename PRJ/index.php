@@ -34,21 +34,21 @@
 			<ul>
 				<li><a href="index.php">Home</a></li>
 				<li>
-					<ul> HR
-						<li><a href="employees.php">Employees</a></li>
-						<li><a href="departments.php">Departments</a></li>
-						<li><a href="jobs.php">Jobs</a></li>
-						<li><a href="locations.php">Locations</a></li>
-					</ul>
-				</li>
-				<li>
-					<ul> OE
-						<li><a href="warehouses.php">Warehouses</a></li>
-						<li><a href="categories.php">Categories</a></li>
-						<li><a href="customers.php">Customers</a></li>
-						<li><a href="products.php">Products</a></li>
-						<li><a href="orders.php">Orders</a></li>
-					</ul>
+				<ul> HR
+							<li><a href="./employees/employees.php">Employees</a></li>
+							<li><a href="./departments/departments.php">Departments</a></li>
+							<li><a href="./jobs/jobs.php">Jobs</a></li>
+							<li><a href="./locations/locations.php">Locations</a></li>
+						</ul>
+					</li>
+					<li>
+						<ul> OE
+							<li><a href="./warehouses/warehouses.php">Warehouses</a></li>
+							<li><a href="./categories/categories.php">Categories</a></li>
+							<li><a href="./customers/customers.php">Customers</a></li>
+							<li><a href="./products/products.php">Products</a></li>
+							<li><a href="./orders/orders.php">Orders</a></li>
+						</ul>
 				</li>
 			</ul>
 			</div>
