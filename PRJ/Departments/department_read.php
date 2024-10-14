@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" href="estils.css">
+		<link rel="stylesheet" href="../estils.css">
 		<title>Human Resource</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -33,30 +33,30 @@
 				<ul>
 					<li><a href="index.php">Home</a></li>
 					<li>
-						<ul> HR
-							<li><a href="employees.php">Employees</a></li>
+					<ul> HR
+							<li><a href="../employees/employees.php">Employees</a></li>
 							<li><a href="departments.php">Departments</a></li>
-							<li><a href="jobs.php">Jobs</a></li>
-							<li><a href="locations.php">Locations</a></li>
+							<li><a href="../jobs/jobs.php">Jobs</a></li>
+							<li><a href="../locations/locations.php">Locations</a></li>
 						</ul>
 					</li>
 					<li>
 						<ul> OE
-							<li><a href="warehouses.php">Warehouses</a></li>
-							<li><a href="categories.php">Categories</a></li>
-							<li><a href="customers.php">Customers</a></li>
-							<li><a href="products.php">Products</a></li>
-							<li><a href="orders.php">Orders</a></li>
+							<li><a href="../warehouses/warehouses.php">Warehouses</a></li>
+							<li><a href="../categories/categories.php">Categories</a></li>
+							<li><a href="../customers/customers.php">Customers</a></li>
+							<li><a href="../products/products.php">Products</a></li>
+							<li><a href="../orders/orders.php">Orders</a></li>
 						</ul>
 					</li>
 				</ul>
 			</div>
 
 			<div id="section">
-			<h3>Employees</h3>
+			<h3>Department</h3>
 			<?php
 				// Include config file
-				require_once "config.php";
+				require_once "../config.php";
 				$conn = null;
 				
 
@@ -69,9 +69,11 @@
 					mysqli_autocommit($conn, true);
 					
 					// Attempt select query execution
-					$query = "SELECT employee_id, first_name, last_name, department_name 
-								FROM departments d INNER JOIN employees e ON d.department_id = e.employee_id 
-								WHERE e.employee_id = " . $param_id;
+					$query = "SELECT d.department_id, department_name, concat(first_name, ' ', last_name) as manager, city 
+								FROM departments d 
+								INNER JOIN employees e ON d.manager_id = e.employee_id
+								INNER JOIN locations l on d.location_id = l.location_id								
+								WHERE d.department_id = " . $param_id;
 					$table = mysqli_query($conn, $query);
 					if (mysqli_num_rows($table) > 0) {
 						echo '<table class="table table-bordered table-striped">';
@@ -91,14 +93,14 @@
 								while(null !== ($row = mysqli_fetch_array($table))) {
 									echo 
 										"<tr>" . 
-											"<td>" . $row['employee_id']     . "</td>" .
-											"<td>" . $row['last_name']       . "</td>" .
-											"<td>" . $row['first_name']      . "</td>" .
-											"<td>" . $row['department_name'] . "</td>" .
+											"<td>" . $row['department_id']     . "</td>" .
+											"<td>" . $row['department_name']       . "</td>" .
+											"<td>" . $row['manager']      . "</td>" .
+											"<td>" . $row['city'] . "</td>" .
 											"<td>" .
-												'<a href="employee_read.php?id='   . $row['employee_id'] . '" class="mr-2" title="View File" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'      . 
-												'<a href="employee_update.php?id=' . $row['employee_id'] . '" class="mr-2" title="Update File" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>' .
-												'<a href="employee_delete.php?id=' . $row['employee_id'] . '" class="mr-2" title="Delete File" data-toggle="tooltip"><span class="fa fa-trash"></span></a>'               .
+												'<a href="department_read.php?id='   . $row['department_id'] . '" class="mr-2" title="View File" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'      . 
+												'<a href="department_update.php?id=' . $row['department_id'] . '" class="mr-2" title="Update File" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>' .
+												'<a href="department_delete.php?id=' . $row['department_id'] . '" class="mr-2" title="Delete File" data-toggle="tooltip"><span class="fa fa-trash"></span></a>'               .
 											"</td>" .
 										"</tr>";
 								}

@@ -31,11 +31,11 @@
 		<div id="content">
 			<div id="menu">
 				<ul>
-					<li><a href="../index.php">Home</a></li>
+					<li><a href="index.php">Home</a></li>
 					<li>
 					<ul> HR
-							<li><a href="employees.php">Employees</a></li>
-							<li><a href="../departments/departments.php">Departments</a></li>
+							<li><a href="../employees/employees.php">Employees</a></li>
+							<li><a href="../departments.php">Departments</a></li>
 							<li><a href="../jobs/jobs.php">Jobs</a></li>
 							<li><a href="../locations/locations.php">Locations</a></li>
 						</ul>
@@ -53,7 +53,7 @@
 			</div>
 
 			<div id="section">
-			<h3>Employee</h3>
+			<h3>Job</h3>
 			<?php
 				// Include config file
 				require_once "../config.php";
@@ -69,9 +69,10 @@
 					mysqli_autocommit($conn, true);
 					
 					// Attempt select query execution
-					$query = "SELECT employee_id, first_name, last_name, department_name 
-								FROM employees e INNER JOIN departments d ON e.department_id = d.department_id 
-								WHERE e.employee_id = " . $param_id;
+					$query = "SELECT j.job_id, job_title, min_salary, max_salary 
+								FROM jobs j
+								ORDER BY job_id
+								WHERE j.job_id = " . $param_id;
 					$table = mysqli_query($conn, $query);
 					if (mysqli_num_rows($table) > 0) {
 						echo '<table class="table table-bordered table-striped">';
@@ -79,9 +80,9 @@
 							"<thead>" .
 								"<tr>" . 
 									"<th>#</th>"          .
-									"<th>Last Name</th>"  .
-									"<th>First Name</th>" .
-									"<th>Department</th>" .
+									"<th>Job</th>"  .
+									"<th>Min salary</th>" .
+									"<th>Max salary</th>" .
 									"<th>Actions "     .
 									'<a href="employee_new.php' . '" class="mr-2" title="New File" data-toggle="tooltip"><span class="fa fa-pencil-square-o"></span></a>'      . 
 									"</th>" .
@@ -91,14 +92,14 @@
 								while(null !== ($row = mysqli_fetch_array($table))) {
 									echo 
 										"<tr>" . 
-											"<td>" . $row['employee_id']     . "</td>" .
-											"<td>" . $row['last_name']       . "</td>" .
-											"<td>" . $row['first_name']      . "</td>" .
-											"<td>" . $row['department_name'] . "</td>" .
+											"<td>" . $row['job_id']     . "</td>" .
+											"<td>" . $row['job_title']       . "</td>" .
+											"<td>" . $row['min_salary']      . "</td>" .
+											"<td>" . $row['max_salary'] . "</td>" .
 											"<td>" .
-												'<a href="employee_read.php?id='   . $row['employee_id'] . '" class="mr-2" title="View File" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'      . 
-												'<a href="employee_update.php?id=' . $row['employee_id'] . '" class="mr-2" title="Update File" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>' .
-												'<a href="employee_delete.php?id=' . $row['employee_id'] . '" class="mr-2" title="Delete File" data-toggle="tooltip"><span class="fa fa-trash"></span></a>'               .
+												'<a href="job_read.php?id='   . $row['job_id'] . '" class="mr-2" title="View File" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'      . 
+												'<a href="job_update.php?id=' . $row['job_id'] . '" class="mr-2" title="Update File" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>' .
+												'<a href="job_delete.php?id=' . $row['job_id'] . '" class="mr-2" title="Delete File" data-toggle="tooltip"><span class="fa fa-trash"></span></a>'               .
 											"</td>" .
 										"</tr>";
 								}
