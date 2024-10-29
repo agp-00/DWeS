@@ -14,7 +14,7 @@
 			<a href="src/html/AddEmployee.php">
 				<button type="button">Añadir o actualizar empleado</button>
 			</a>
-			<a href="src/html/ReadEmployee.php">
+			<a href="src/html/ReadEmployee.php?action=view_employees">
 				<button type="button">Lista de empleados</button>
 			</a>
 		</div>
