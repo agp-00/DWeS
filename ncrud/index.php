@@ -24,7 +24,7 @@
 			<a href="src/html/AddCustomer.php">
 				<button type="button">Añadir o actualizar cliente</button>
 			</a>
-			<a href="src/html/ReadEmployee.php">
+			<a href="src/html/ReadCustomer.php?action=view_customers">
 				<button type="button">Lista de empleados</button>
 			</a>
 		</div>
