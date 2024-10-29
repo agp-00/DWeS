@@ -1,0 +1,15 @@
+{
+    "name": "ubtadmin/ncrud",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Adrián Gómez Perelló",
+            "email": "agp00@iesemilidarder.com"
+        }
+    ],
+    "require": {}
+}
