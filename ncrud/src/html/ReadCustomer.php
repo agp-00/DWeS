@@ -11,14 +11,15 @@
 			echo "<h2>Llista de Clients</h2>";
 			echo "<a href='../../index.php'>
 					<button type='button'>Inicio</button>
-				  </a>";
+				  </a>
+                  <br><br>";
 			echo "<table border='1'>";
 			echo "<tr>
-					<th>ID</th><th>Nom</th><th>Cognom</th><th>Adreça</th><th>Codi Postal</th>
-					<th>Ciutat</th><th>Estat</th><th>País</th><th>Telèfon</th><th>Idioma</th>
+					<th>ID</th><th>Nombre</th><th>Apellido</th><th>Dirección</th><th>Código Postal</th>
+					<th>Ciudad</th><th>Estado</th><th>País</th><th>Teléfono</th><th>Idioma</th>
 					<th>Territori</th><th>Límit de Crèdit</th><th>Email</th><th>ID de Gestor</th>
-					<th>Localització</th><th>Data de Naixement</th><th>Estat Civil</th>
-					<th>Gènere</th><th>Nivell d'Ingressos</th><th>Accions</th>
+					<th>Ubicación</th><th>Fecha de Nacimiento</th><th>Estado Civil</th>
+					<th>Sexo</th><th>Nivel de Ingresos</th><th>Acciones</th>
 				  </tr>";
 
 			// Iteramos sobre cada cliente y mostramos sus datos en la tabla
@@ -51,6 +52,11 @@
 				echo "</tr>";
 			}
 			echo "</table>";
+
+            echo "<br><br>";
+            echo "<a href='../../index.php'>
+            <button type='button'>Inicio</button>
+          </a>";
 			
 		} catch (\Exception $e) {
 			echo "S'ha produït el següent error:" . "<br>" . $e->getMessage();

@@ -82,6 +82,20 @@ input[type="submit"] {
     font-weight: bold;
 }
 
+button[type="button"] {
+    background-color: #007acc;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    margin-top:10px;
+}
+
 input[type="submit"]:hover {
     background-color: #005a99;
 }

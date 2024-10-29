@@ -7,8 +7,9 @@
 				$employees = Employee::all();
 				echo "<h2>Llista d'Empleats</h2>";
 				echo "<a href='../../index.php'>
-						<button type='button'>Inicio</button>
-					 </a>";
+				<button type='button'>Inicio</button>
+			  </a>
+			  <br><br>";
 				echo "<table border='1'>";
 				echo "<tr><th>ID</th><th>Nom</th><th>Llinatge</th><th>Email</th><th>Número de Telèfon</th><th>Data de Contractació</th><th>ID de Treball</th><th>Salari</th><th>Comissió</th><th>ID del Gerent</th><th>ID del Departament</th></tr>";
 				foreach ($employees as $employee) {
@@ -32,6 +33,11 @@
 				}
 				echo "</table>";
 				
+				echo "<br><br>";
+				echo "<a href='../../index.php'>
+				<button type='button'>Inicio</button>
+			  </a>";
+			  
 			} catch (\Exception $e) {
 				echo "S'ha produït el següent error:" . "<br>" . $e->getMessage();
 			}

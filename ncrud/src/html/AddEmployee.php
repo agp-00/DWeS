@@ -88,6 +88,7 @@
 			<label>ID del Departament:</label><br>
 			<input type="number" name="department_id"><br><br>
 			
+			<button type="button" onclick="window.location.href='../../index.php'">Cancelar</button>
 			<input type="submit" value="Afegir Empleat">
 		</form>
 	</body>
