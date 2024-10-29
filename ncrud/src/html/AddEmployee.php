@@ -12,7 +12,7 @@
 		// Si el formulari ha estat enviat
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			// Obtenir els valors del formulari
-			$employee_id    = $_POST['employee_id'];
+			$employee_id    = $_POST['employee_id'];    
 			$first_name     = $_POST['first_name'];
 			$last_name      = $_POST['last_name'];
 			$email          = $_POST['email'];

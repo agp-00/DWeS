@@ -1,0 +1,97 @@
+/* CSS Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #e9f0f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenedor del formulario */
+form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 450px;
+    width: 100%;
+    margin: 20px;
+}
+
+/* Título */
+h1 {
+    font-size: 26px;
+    color: #444;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #007acc;
+    padding-bottom: 10px;
+}
+
+/* Etiquetas de los campos */
+label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus {
+    border-color: #007acc;
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(0, 122, 204, 0.3);
+}
+
+/* Botón de envío */
+input[type="submit"] {
+    background-color: #007acc;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: #005a99;
+}
+
+/* Espaciado entre secciones */
+form div {
+    margin-bottom: 20px;
+}
+
+/* Ajuste de color y estilo para mejor contraste */
+body {
+    color: #333;
+}

@@ -6,18 +6,8 @@ namespace Composer\Autoload;
 
 class ComposerStaticInita3553ef4cecfff79a07296702d13631b
 {
-    public static $prefixLengthsPsr4 = array (
-        'U' => 
-        array (
-            'Ubtadmin\\Ncrud\\' => 15,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'Ubtadmin\\Ncrud\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/../..' . '/src',
     );
 
     public static $classMap = array (
@@ -27,8 +17,7 @@ class ComposerStaticInita3553ef4cecfff79a07296702d13631b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita3553ef4cecfff79a07296702d13631b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita3553ef4cecfff79a07296702d13631b::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInita3553ef4cecfff79a07296702d13631b::$fallbackDirsPsr4;
             $loader->classMap = ComposerStaticInita3553ef4cecfff79a07296702d13631b::$classMap;
 
         }, null, ClassLoader::class);
