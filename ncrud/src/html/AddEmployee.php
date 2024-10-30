@@ -50,43 +50,47 @@
 <html lang="en">
 <head>
 		<meta charset="UTF-8">
-		<title>Formulari d'Empleat</title>
+		<title>Formulario de Empleado</title>
 	</head>
 	<body>
-		<h1>Afegir un Nou Empleat</h1>
+		<h1>Añadir o actualizar empleado</h1>
 		<form method="POST" action="">
-			<label>ID Empleat:</label><br>
+			<label>ID Empleado:</label><br>
 			<input type="number" name="employee_id" required><br><br>
 			
-			<label>Nom:</label><br>
+			<label>Nombre:</label><br>
 			<input type="text" name="first_name" required><br><br>
 			
-			<label>Llinatge:</label><br>
+			<label>Apellido:</label><br>
 			<input type="text" name="last_name" required><br><br>
 			
 			<label>Email:</label><br>
 			<input type="email" name="email" required><br><br>
 			
-			<label>Número de Telèfon:</label><br>
+			<label>Número de Teléfono:</label><br>
 			<input type="text" name="phone_number"><br><br>
 			
-			<label>Data de Contractació:</label><br>
+			<label>Fecha de Contratación:</label><br>
 			<input type="date" name="hire_date" required><br><br>
 			
-			<label>ID de Treball:</label><br>
+			<label>ID del Trabajo:</label><br>
 			<input type="text" name="job_id" required><br><br>
 			
-			<label>Salari:</label><br>
+			<label>Salario:</label><br>
 			<input type="number" name="salary" step="0.01" required><br><br>
 			
-			<label>Comissió:</label><br>
+			<label>Comisión:</label><br>
 			<input type="number" name="commission_pct" step="0.01"><br><br>
 			
-			<label>ID del Gerent:</label><br>
+			<label>ID del Gerente:</label><br>
 			<input type="number" name="manager_id"><br><br>
 			
-			<label>ID del Departament:</label><br>
-			<input type="number" name="department_id"><br><br>
+			<label>ID del Departamento:</label><br>
+        	<select name="marital_status">
+				<option value="">Selecciona el departamento</option>
+				<option value="single">Soltero</option>
+				<option value="married">Casado</option>
+			</select><br><br>
 			
 			<button type="button" onclick="window.location.href='../../index.php'">Cancelar</button>
 			<input type="submit" value="Afegir Empleat">

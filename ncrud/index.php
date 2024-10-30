@@ -31,20 +31,20 @@
 	
 		<div> <h1> Departamentos </h1>
 			<h2>Menú de Gestión de departamentos</h2>
-			<a href="src/html/AddEmployee.php">
+			<a href="src/html/AddDepartment.php">
 				<button type="button">Añadir o actualizar departamento</button>
 			</a>
-			<a href="src/html/ReadEmployee.php?action=view_employees">
+			<a href="src/html/ReadDepartment.php?action=view_departments">
 				<button type="button">Lista de departamentos</button>
 			</a>
 		</div>
 
 		<div> <h1> Trabajos </h1>
 		<h2>Menú de Gestión de trabajos</h2>
-			<a href="src/html/AddCustomer.php">
+			<a href="src/html/AddJob.php">
 				<button type="button">Añadir o actualizar trabajo</button>
 			</a>
-			<a href="src/html/ReadCustomer.php?action=view_customers">
+			<a href="src/html/ReadJob.php?action=view_jobs">
 				<button type="button">Lista de trabajos</button>
 			</a>
 		</div>
