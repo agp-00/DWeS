@@ -1,6 +1,6 @@
 <?php
-    require '../../vendor/autoload.php';
-    use models\employee;
+    require '../../../vendor/autoload.php';
+    use models\Employee;
 
     // Comprobamos si se ha recibido el ID del cliente a eliminar
     if (isset($_GET['id'])) {

@@ -1,5 +1,5 @@
 <?php
-    require_once '../../vendor/autoload.php';
+    require_once '../../../vendor/autoload.php';
 
     function convertToNull($value) {
 		return $value === '' ? null : $value;
@@ -86,10 +86,10 @@
 			<input type="number" name="manager_id"><br><br>
 			
 			<label>ID del Departamento:</label><br>
-        	<select name="marital_status">
+			<select name="department_id">
 				<option value="">Selecciona el departamento</option>
-				<option value="single">Soltero</option>
-				<option value="married">Casado</option>
+				<option value="1">Departamento 1</option>
+				<option value="2">Departamento 2</option>
 			</select><br><br>
 			
 			<button type="button" onclick="window.location.href='../../index.php'">Cancelar</button>

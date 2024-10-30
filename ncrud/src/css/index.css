@@ -9,7 +9,7 @@
 body {
     background-color: #adfff4;
     display: grid;
-    grid-template-columns: repeat(2, 0fr);
+    grid-template-columns: repeat(4, 0fr);
     justify-content: center;
     align-items: center;
     min-height: 100vh;

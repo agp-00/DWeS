@@ -1,5 +1,5 @@
 <?php
-	require '../../vendor/autoload.php';
+	require '../../../vendor/autoload.php';
     use models\Employee;
 
 		if (isset($_GET['action']) && $_GET['action'] == 'view_employees') {

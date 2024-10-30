@@ -48,5 +48,46 @@
 				<button type="button">Lista de trabajos</button>
 			</a>
 		</div>
+
+
+		<div> <h1> Regions </h1>
+			<h2>Menú de Gestión de regiones</h2>
+			<a href="src/html/AddRegion.php">
+				<button type="button">Añadir o actualizar región</button>
+			</a>
+			<a href="src/html/ReadRegion.php?action=view_regions">
+				<button type="button">Lista de regiones</button>
+			</a>
+		</div>
+
+		<div> <h1> Countries </h1>
+			<h2>Menú de Gestión de países</h2>
+			<a href="src/html/AddCountry.php">
+				<button type="button">Añadir o actualizar país</button>
+			</a>
+			<a href="src/html/ReadCountry.php?action=view_countries">
+				<button type="button">Lista de países</button>
+			</a>
+		</div>
+	
+		<div> <h1> Locations </h1>
+			<h2>Menú de Gestión de ubicaciones</h2>
+			<a href="src/html/AddLocation.php">
+				<button type="button">Añadir o actualizar ubicación</button>
+			</a>
+			<a href="src/html/ReadLocation.php?action=view_locations">
+				<button type="button">Lista de ubicaciones</button>
+			</a>
+		</div>
+
+		<div> <h1> Orders, Order Items, Product Information </h1>
+			<h2>Menú de Gestión de pedidos, artículos de pedido, información del producto</h2>
+			<a href="src/html/AddOrder.php">
+				<button type="button">Añadir o actualizar pedido</button>
+			</a>
+			<a href="src/html/ReadOrder.php?action=view_orders">
+				<button type="button">Lista de pedidos</button>
+			</a>
+		</div>
 	</body>
 </html>
