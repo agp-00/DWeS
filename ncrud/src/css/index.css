@@ -7,8 +7,9 @@
 }
 
 body {
-    background-color: #f3f4f6;
-    display: flex;
+    background-color: #adfff4;
+    display: grid;
+    grid-template-columns: repeat(2, 0fr);
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -17,13 +18,15 @@ body {
 
 /* Estilo de los contenedores */
 div {
+    display: grid;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     max-width: 400px;
-    width: 100%;
+    width: 300px;
+    height:300px;
     text-align: center;
 }
 
@@ -41,7 +44,7 @@ div h2 {
 
 /* Estilo de los botones */
 button {
-    background-color: #007BFF;
+    background-color: #0077f7;
     color: #ffffff;
     border: none;
     border-radius: 5px;

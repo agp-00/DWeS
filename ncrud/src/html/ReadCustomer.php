@@ -15,11 +15,11 @@
                   <br><br>";
 			echo "<table border='1'>";
 			echo "<tr>
-					<th>ID</th><th>Nombre</th><th>Apellido</th><th>Dirección</th><th>Código Postal</th>
-					<th>Ciudad</th><th>Estado</th><th>País</th><th>Teléfono</th><th>Idioma</th>
-					<th>Territori</th><th>Límit de Crèdit</th><th>Email</th><th>ID de Gestor</th>
-					<th>Ubicación</th><th>Fecha de Nacimiento</th><th>Estado Civil</th>
-					<th>Sexo</th><th>Nivel de Ingresos</th><th>Acciones</th>
+					<th>ID</th> <th>Nombre</th> <th>Apellido</th> <th>Dirección</th>
+					<th>Código Postal</th> <th>Ciudad</th> <th>Estado</th> <th>País</th>
+					<th>Teléfono</th> <th>Territorio</th> <th>Email</th>
+					<th>ID de Gestor</th> <th>Fecha de Nacimiento</th>
+					<th>Estado Civil</th> <th>Sexo</th><th>Acciones</th>
 				  </tr>";
 
 			// Iteramos sobre cada cliente y mostramos sus datos en la tabla
@@ -34,16 +34,12 @@
 				echo "<td>{$customer->cust_state}</td>";
 				echo "<td>{$customer->cust_country}</td>";
 				echo "<td>{$customer->phone_numbers}</td>";
-				echo "<td>{$customer->nls_language}</td>";
 				echo "<td>{$customer->nls_territory}</td>";
-				echo "<td>{$customer->credit_limit}</td>";
 				echo "<td>{$customer->cust_email}</td>";
 				echo "<td>{$customer->account_mgr_id}</td>";
-				echo "<td>{$customer->cust_geo_location}</td>";
 				echo "<td>{$customer->date_of_birth}</td>";
 				echo "<td>{$customer->marital_status}</td>";
 				echo "<td>{$customer->gender}</td>";
-				echo "<td>{$customer->income_level}</td>";
 				
 				// Botón para eliminar cliente
 				echo "<td><a href='DeleteCustomer.php?id={$customer->customer_id}'>
