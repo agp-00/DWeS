@@ -9,7 +9,7 @@
 body {
     background-color: #adfff4;
     display: grid;
-    grid-template-columns: repeat(4, 0fr);
+    grid-template-columns: repeat(3, 0fr);
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -42,6 +42,13 @@ div h2 {
     color: #333;
     margin-bottom: 15px;
 }
+
+.center {
+    grid-column: 2 / span 2;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 
 /* Estilo de los botones */
 button {

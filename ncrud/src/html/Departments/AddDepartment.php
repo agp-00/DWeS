@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Departamento</title>
-    <link rel="stylesheet" href="../../src/css/AddDepartment.css">
+    <link rel="stylesheet" href="../../../src/css/AddDepartment.css">
 </head>
 <body>
     <h1>Añadir un Nuevo Departamento</h1>
@@ -24,8 +24,8 @@
             <option value="2">Gerente 2</option>
         </select><br><br>
 
+        <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
         <input type="submit" value="Añadir Departamento">
-        <button type="button" onclick="window.location.href='../../index.php'">Cancelar</button>
     </form>
 </body>
 </html>

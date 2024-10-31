@@ -86,13 +86,10 @@
 			<input type="number" name="manager_id"><br><br>
 			
 			<label>ID del Departamento:</label><br>
-			<select name="department_id">
-				<option value="">Selecciona el departamento</option>
-				<option value="1">Departamento 1</option>
-				<option value="2">Departamento 2</option>
-			</select><br><br>
+			<input type="text" name="department_id" required>
+			<br><br>
 			
-			<button type="button" onclick="window.location.href='../../index.php'">Cancelar</button>
+			<button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
 			<input type="submit" value="Afegir Empleat">
 		</form>
 	</body>

@@ -1,5 +1,5 @@
 <?php
-    require '../../vendor/autoload.php';
+    require '../../../vendor/autoload.php';
     use models\department;
 
     // Comprobamos si se ha recibido el ID del departamento a eliminar

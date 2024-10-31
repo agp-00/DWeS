@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Cliente</title>
-    <link rel="stylesheet" href="../../src/css/AddCustomer.css">
+    <link rel="stylesheet" href="../../../src/css/AddCustomer.css">
 </head>
 <body>
     <h1>Añadir un Nuevo Cliente</h1>
@@ -67,7 +67,7 @@
         </select><br><br>
 
         <input type="submit" value="Añadir Cliente">
-        <button type="button" onclick="window.location.href='../../index.php'">Cancelar</button>
+        <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
     </form>
 </body>
 </html>

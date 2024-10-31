@@ -6,7 +6,7 @@
 			try {
 				$employees = Employee::all();
 				echo "<h2>Llista d'Empleats</h2>";
-				echo "<a href='../../index.php'>
+				echo "<a href='../../../index.php'>
 				<button type='button'>Inicio</button>
 			  </a>
 			  <br><br>";
@@ -34,7 +34,7 @@
 				echo "</table>";
 				
 				echo "<br><br>";
-				echo "<a href='../../index.php'>
+				echo "<a href='../../../index.php'>
 				<button type='button'>Inicio</button>
 			  </a>";
 			  

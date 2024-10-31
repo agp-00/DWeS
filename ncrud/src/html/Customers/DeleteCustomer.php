@@ -1,5 +1,5 @@
 <?php
-    require '../../vendor/autoload.php';
+    require '../../../vendor/autoload.php';
     use models\Customer;
 
     // Comprobamos si se ha recibido el ID del cliente a eliminar

@@ -11,40 +11,40 @@
 	
 		<div> <h1> Empleados </h1>
 			<h2>Menú de Gestión de empleados</h2>
-			<a href="src/html/AddEmployee.php">
+			<a href="src/html/employees/AddEmployee.php">
 				<button type="button">Añadir o actualizar empleado</button>
 			</a>
-			<a href="src/html/ReadEmployee.php?action=view_employees">
+			<a href="src/html/employees/ReadEmployee.php?action=view_employees">
 				<button type="button">Lista de empleados</button>
 			</a>
 		</div>
 
 		<div> <h1> Customers </h1>
 		<h2>Menú de Gestión de clientes</h2>
-			<a href="src/html/AddCustomer.php">
+			<a href="src/html/customers/AddCustomer.php">
 				<button type="button">Añadir o actualizar cliente</button>
 			</a>
-			<a href="src/html/ReadCustomer.php?action=view_customers">
+			<a href="src/html/customers/ReadCustomer.php?action=view_customers">
 				<button type="button">Lista de clientes</button>
 			</a>
 		</div>
 	
 		<div> <h1> Departamentos </h1>
 			<h2>Menú de Gestión de departamentos</h2>
-			<a href="src/html/AddDepartment.php">
+			<a href="src/html/departments/AddDepartment.php">
 				<button type="button">Añadir o actualizar departamento</button>
 			</a>
-			<a href="src/html/ReadDepartment.php?action=view_departments">
+			<a href="src/html/departments/ReadDepartment.php?action=view_departments">
 				<button type="button">Lista de departamentos</button>
 			</a>
 		</div>
 
 		<div> <h1> Trabajos </h1>
 		<h2>Menú de Gestión de trabajos</h2>
-			<a href="src/html/AddJob.php">
+			<a href="src/html/jobs/AddJob.php">
 				<button type="button">Añadir o actualizar trabajo</button>
 			</a>
-			<a href="src/html/ReadJob.php?action=view_jobs">
+			<a href="src/html/jobs/ReadJob.php?action=view_jobs">
 				<button type="button">Lista de trabajos</button>
 			</a>
 		</div>
@@ -52,42 +52,64 @@
 
 		<div> <h1> Regions </h1>
 			<h2>Menú de Gestión de regiones</h2>
-			<a href="src/html/AddRegion.php">
+			<a href="src/html/regions/AddRegion.php">
 				<button type="button">Añadir o actualizar región</button>
 			</a>
-			<a href="src/html/ReadRegion.php?action=view_regions">
+			<a href="src/html/regions/ReadRegion.php?action=view_regions">
 				<button type="button">Lista de regiones</button>
 			</a>
 		</div>
 
 		<div> <h1> Countries </h1>
 			<h2>Menú de Gestión de países</h2>
-			<a href="src/html/AddCountry.php">
+			<a href="src/html/countries/AddCountry.php">
 				<button type="button">Añadir o actualizar país</button>
 			</a>
-			<a href="src/html/ReadCountry.php?action=view_countries">
+			<a href="src/html/countries/ReadCountry.php?action=view_countries">
 				<button type="button">Lista de países</button>
 			</a>
 		</div>
 	
 		<div> <h1> Locations </h1>
 			<h2>Menú de Gestión de ubicaciones</h2>
-			<a href="src/html/AddLocation.php">
+			<a href="src/html/locations/AddLocation.php">
 				<button type="button">Añadir o actualizar ubicación</button>
 			</a>
-			<a href="src/html/ReadLocation.php?action=view_locations">
+			<a href="src/html/locations/ReadLocation.php?action=view_locations">
 				<button type="button">Lista de ubicaciones</button>
 			</a>
 		</div>
 
-		<div> <h1> Orders, Order Items, Product Information </h1>
-			<h2>Menú de Gestión de pedidos, artículos de pedido, información del producto</h2>
-			<a href="src/html/AddOrder.php">
-				<button type="button">Añadir o actualizar pedido</button>
+		<div> <h1> Warehouses </h1>
+			<h2>Menú de Gestión de Almacenes</h2>
+			<a href="src/html/warehouses/AddWarehouse.php">
+				<button type="button">Añadir o actualizar almacén</button>
 			</a>
-			<a href="src/html/ReadOrder.php?action=view_orders">
-				<button type="button">Lista de pedidos</button>
+			<a href="src/html/warehouses/ReadWarehouse.php?action=view_warehouses">
+				<button type="button">Lista de almacenes</button>
 			</a>
 		</div>
+
+		<div> <h1> Inventories </h1>
+			<h2>Menú de Gestión de inventarios</h2>
+			<a href="src/html/inventories/AddInventory.php">
+				<button type="button">Añadir o actualizar inventario</button>
+			</a>
+			<a href="src/html/inventories/ReadInventory.php?action=view_inventories">
+				<button type="button">Lista de inventarios</button>
+			</a>
+		</div>
+
+		<div class="center"> <h1>  Orders, Order Items, Product Information </h1>
+			<h2> Menú de Gestión de pedidos, artículos de pedido, información del producto</h2>
+			<a href="src/html/warehouses/AddWarehouse.php">
+				<button type="button">Añadir o actualizar almacén</button>
+			</a>
+			<a href="src/html/warehouses/ReadWarehouse.php?action=view_warehouses">
+				<button type="button">Lista de almacenes</button>
+			</a>
+		</div>
+		
 	</body>
+	
 </html>

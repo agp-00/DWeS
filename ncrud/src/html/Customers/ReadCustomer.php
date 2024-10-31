@@ -1,5 +1,5 @@
 <?php
-	require '../../vendor/autoload.php';
+	require '../../../vendor/autoload.php';
     use models\Customer;
 
 	if (isset($_GET['action']) && $_GET['action'] === 'view_customers') {
@@ -9,7 +9,7 @@
 			
 			// Encabezado de la tabla y botón de inicio
 			echo "<h2>Llista de Clients</h2>";
-			echo "<a href='../../index.php'>
+			echo "<a href='../../../index.php'>
 					<button type='button'>Inicio</button>
 				  </a>
                   <br><br>";
@@ -50,7 +50,7 @@
 			echo "</table>";
 
             echo "<br><br>";
-            echo "<a href='../../index.php'>
+            echo "<a href='../../../index.php'>
             <button type='button'>Inicio</button>
           </a>";
 			

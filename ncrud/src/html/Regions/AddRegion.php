@@ -1,5 +1,5 @@
 <?php
-    require_once '../../vendor/autoload.php';
+    require_once '../../../vendor/autoload.php';
 
     function convertToNull($value) {
         return $value === '' ? null : $value;
@@ -41,7 +41,7 @@
         <label>Nombre de la Región:</label><br>
         <input type="text" name="region_name" required><br><br>
         
-        <button type="button" onclick="window.location.href='../../index.php'">Cancelar</button>
+        <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
         <input type="submit" value="Añadir Región">
     </form>
 </body>

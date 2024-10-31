@@ -1,5 +1,5 @@
 <?php
-    require '../../vendor/autoload.php';
+    require '../../../vendor/autoload.php';
     use models\Region;
 
     // Comprobamos si se ha recibido el ID de la región a eliminar

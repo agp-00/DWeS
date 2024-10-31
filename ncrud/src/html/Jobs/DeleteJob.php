@@ -1,5 +1,5 @@
 <?php
-    require '../../vendor/autoload.php';
+    require '../../../vendor/autoload.php';
     use models\job;
 
     // Comprobamos si se ha recibido el ID del trabajo a eliminar

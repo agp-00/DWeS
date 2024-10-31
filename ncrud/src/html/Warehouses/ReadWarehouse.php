@@ -1,23 +1,23 @@
 <?php
     require '../../../vendor/autoload.php';
-    use models\Region;
+    use models\Warehouse;
 
-    if (isset($_GET['action']) && $_GET['action'] == 'view_regions') {
+    if (isset($_GET['action']) && $_GET['action'] == 'view_warehouses') {
         try {
-            $regions = Region::all();
-            echo "<h2>Lista de Regiones</h2>";
+            $warehouses = Warehouse::all();
+            echo "<h2>Lista de Almacenes</h2>";
             echo "<a href='../../../index.php'>
             <button type='button'>Inicio</button>
           </a>
           <br><br>";
             echo "<table border='1'>";
             echo "<tr><th>ID</th><th>Nombre</th></tr>";
-            foreach ($regions as $region) {
+            foreach ($warehouses as $warehouse) {
                 echo "<tr>";
-                echo "<td>{$region->region_id}</td>";
-                echo "<td>{$region->region_name}</td>";
-                echo "<td><a href='DeleteRegion.php?id={$region->region_id}'>
-                                <button type='button'>Eliminar región</button>  
+                echo "<td>{$warehouse->warehouse_id}</td>";
+                echo "<td>{$warehouse->warehouse_name}</td>";
+                echo "<td><a href='DeleteWarehouse.php?id={$warehouse->warehouse_id}'>
+                                <button type='button'>Eliminar almacén</button>  
                         </a></td>";
                 echo "</tr>";
             }

@@ -1,5 +1,5 @@
 <?php
-    require_once '../../vendor/autoload.php';
+    require_once '../../../vendor/autoload.php';
 
     function convertToNull($value) {
         return $value === '' ? null : $value;
@@ -53,7 +53,7 @@
             <label>Salario Máximo:</label><br>
             <input type="number" name="max_salary" step="0.01" required><br><br>
             
-            <button type="button" onclick="window.location.href='../../index.php'">Cancelar</button>
+            <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
             <input type="submit" value="Añadir Trabajo">
         </form>
     </body>

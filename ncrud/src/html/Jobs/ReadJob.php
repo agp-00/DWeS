@@ -1,12 +1,12 @@
 <?php
-    require '../../vendor/autoload.php';
+    require '../../../vendor/autoload.php';
     use models\Job;
 
         if (isset($_GET['action']) && $_GET['action'] == 'view_jobs') {
             try {
                 $jobs = Job::all();
                 echo "<h2>Lista de Trabajos</h2>";
-                echo "<a href='../../index.php'>
+                echo "<a href='../../../index.php'>
                 <button type='button'>Inicio</button>
               </a>
               <br><br>";
@@ -29,7 +29,7 @@
                 echo "</table>";
                 
                 echo "<br><br>";
-                echo "<a href='../../index.php'>
+                echo "<a href='../../../index.php'>
                 <button type='button'>Inicio</button>
               </a>";
               
