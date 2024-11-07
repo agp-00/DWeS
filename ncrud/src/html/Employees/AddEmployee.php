@@ -8,7 +8,45 @@
 	use Config\Database;
 	use Models\Employee;
 
-    try {
+	function getEmployeeIds() {
+		$db = new Database();
+		$db->connectDB('C:/temp/config.db');
+		$employee_ids = [];
+		
+		$query = "SELECT employee_id FROM employees ORDER BY employee_id";
+		$result = $db->conn->query($query);
+
+		if ($result) {
+			while ($row = $result->fetch_assoc()) {
+				$employee_ids[] = $row['employee_id'];
+			}
+		}
+		$db->closeDB();
+		return $employee_ids;
+	}
+
+	$employee_ids = getEmployeeIds();
+
+	function getDepartmentIds() {
+		$db = new Database();
+		$db->connectDB('C:/temp/config.db');
+		$department_ids = [];
+		
+		$query = "SELECT department_name FROM departments ORDER BY department_name";
+		$result = $db->conn->query($query);
+
+		if ($result) {
+			while ($row = $result->fetch_assoc()) {
+				$department_ids[] = $row['department_name'];
+			}
+		}
+		$db->closeDB();
+		return $department_ids;
+	}
+
+	$department_ids = getDepartmentIds();
+
+	try {
 		// Si el formulari ha estat enviat
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			// Obtenir els valors del formulari
@@ -83,12 +121,21 @@
 			<input type="number" name="commission_pct" step="0.01"><br><br>
 			
 			<label>ID del Gerente:</label><br>
-			<input type="number" name="manager_id"><br><br>
+			<select name="manager_id">
+				<option value="">Seleccione un gerente</option>
+				<?php foreach ($employee_ids as $id): ?>
+					<option value="<?= $id ?>"><?= $id ?></option>
+				<?php endforeach; ?>
+			</select><br><br>
 			
-			<label>ID del Departamento:</label><br>
-			<input type="text" name="department_id" required>
-			<br><br>
-			
+			<label>Departamento:</label><br>
+			<select name="department_id">
+				<option value="">Seleccione un departamento</option>
+				<?php foreach ($department_ids as $id): ?>
+					<option value="<?= $id ?>"><?= $id ?></option>
+				<?php endforeach; ?>
+			</select><br><br>
+
 			<button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
 			<input type="submit" value="Afegir Empleat">
 		</form>

@@ -8,6 +8,25 @@
     use Config\Database;
     use Models\Warehouse;
 
+    function getLocations() {
+        $db = new Database();
+        $db->connectDB('C:/temp/config.db');
+        $locations = [];
+        
+        $query = "SELECT city FROM locations ORDER BY city";
+        $result = $db->conn->query($query);
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $locations[] = $row['city'];
+            }
+        }
+        $db->closeDB();
+        return $locations;
+    }
+
+    $locations = getLocations();
+
     try {
         // Si el formulario ha sido enviado
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -42,8 +61,13 @@
         <label>Nombre del Almacén:</label><br>
         <input type="text" name="warehouse_name" required><br><br>
         
-        <label>Ubicación:</label><br>
-        <input type="text" name="location" required><br><br>
+        <label>Ubicación del Departamento:</label><br>
+        <select name="location">
+            <option value="">Seleccione una ubicación</option>
+            <?php foreach ($locations as $location): ?>
+            <option value="<?= $location ?>"><?= $location ?></option>
+            <?php endforeach; ?>
+        </select><br><br>
         
         <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
         <input type="submit" value="Añadir Almacén">

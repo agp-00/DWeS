@@ -18,9 +18,9 @@
                 foreach ($linies as $linia) {
                     // Comprovam si la línia és un comentari
                     $linia = trim($linia);
-                    if (strpos(trim($linia), '#') !== 0) {
+                    if (strpos(trim($linia), '#') !== 0 && strpos($linia, '=') !== false) {
                         list($clau, $valor) = explode('=', $linia, 2);
-                        $config[trim($clau)] = trim($valor); // Emmagatzemem clau i valor a l'array associatiu
+                        $config[trim($clau)] = trim($valor ?? ''); // Emmagatzemem clau i valor a l'array associatiu
                     }
                 }
             } else {
