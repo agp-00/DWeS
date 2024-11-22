@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->string('nom', 100)->nullable();
-            $table->foreign('municipality_id')->references('id')->on('municipalities')->onDelete('cascade');
-            $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
+            $table->foreignId('municipality_id')->references('id')->on('municipalities')->onDelete('cascade');
+            $table->foreignId('zone_id')->references('id')->on('zones')->onDelete('cascade');
             $table->timestamps();
         });
     }

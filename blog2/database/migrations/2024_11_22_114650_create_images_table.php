@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('url', 100)->nullable();
-            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
+            $table->foreignId('comment_id')->references('id')->on('comments')->onDelete('cascade');
             $table->timestamps();
         });
     }
