@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('municipalities', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->nullable();
-            $table->foreignId('island_id')->references('id')->on('islands')->onDelete('cascade');
+            $table->foreignId('island_id')->constrained('islands')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
     }

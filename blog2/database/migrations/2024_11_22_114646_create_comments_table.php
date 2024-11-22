@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('comment', 100)->nullable();
             $table->number('score')->nullable();
             $table->string('status',1)->nullable();
-            $table->foreignId('space_id')->references('id')->on('spaces')->onDelete('cascade');
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('space_id')->constrained('spaces')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
     }

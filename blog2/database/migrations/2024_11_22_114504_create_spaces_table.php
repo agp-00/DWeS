@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('accessType',1)->nullable();
             $table->number('totalScore')->nullable();
             $table->number('countStore')->nullable();
-            $table->foreignId('address_id')->references('id')->on('addresses')->onDelete('cascade');
-            $table->foreignId('space_type_id')->references('id')->on('space_types')->onDelete('cascade');
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('address_id')->constrained('addresses')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('space_type_id')->constrained('space_types')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
     }
