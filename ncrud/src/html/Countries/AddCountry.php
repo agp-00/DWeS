@@ -35,13 +35,11 @@
             // Obtener los valores del formulario
             $country_id   = $_POST['country_id'];
             $country_name = $_POST['country_name'];
-            $region       = $_POST['region'];
             
             // Crear una nueva instancia de Country con los valores del formulario
             $country = new Country(
                 $country_id,
                 $country_name,
-                convertToNull($region)
             );
 
             // Guardar el país en la base de datos
@@ -57,27 +55,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de País</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../src/css/AddCountry.css">
 </head>
 <body>
-    <h1>Añadir un Nuevo País</h1>
-    <form method="POST" action="">
-        <label>ID País:</label><br>
-        <input type="number" name="country_id" required><br><br>
+    <div class="container mt-5">
+        <h1 class="mb-4">Añadir un Nuevo País</h1>
+        <form method="POST" action="">
+            <div class="form-group">
+                <label for="country_id">ID País:</label>
+                <input type="number" class="form-control" id="country_id" name="country_id" required>
+            </div>
 
-        <label>Nombre del País:</label><br>
-        <input type="text" name="country_name" required><br><br>
+            <div class="form-group">
+                <label for="country_name">Nombre del País:</label>
+                <input type="text" class="form-control" id="country_name" name="country_name" required>
+            </div>
 
-        <label>Región:</label><br>
-            <select name="region">
-                <option value="">Seleccione una región</option>
-                <?php foreach ($regions as $region): ?>
-                    <option value="<?= $region ?>"><?= $region ?></option>
-                <?php endforeach; ?>
-            </select><br><br>
-
-        <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
-        <input type="submit" value="Añadir País">
-    </form>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='../../../index.php'">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Añadir País</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

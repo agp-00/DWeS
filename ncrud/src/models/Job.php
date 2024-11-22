@@ -43,7 +43,7 @@
                                 max_salary = VALUES (max_salary)";
                     $stmt = $db->conn->prepare($sql);
                     // Vincular els valors
-                    $stmt->bind_param( "isii", 
+                    $stmt->bind_param( "ssii", 
                                             $this->job_id, 
                                             $this->job_title, 
                                             $this->min_salary, 

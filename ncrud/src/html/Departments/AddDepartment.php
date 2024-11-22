@@ -9,24 +9,24 @@
     use Config\Database;
     use Models\Department;
 
-	function getEmployeeIds() {
-		$db = new Database();
-		$db->connectDB('C:/temp/config.db');
-		$employee_ids = [];
-		
-		$query = "SELECT employee_id FROM employees ORDER BY employee_id";
-		$result = $db->conn->query($query);
+    function getEmployeeIds() {
+        $db = new Database();
+        $db->connectDB('C:/temp/config.db');
+        $employee_ids = [];
+        
+        $query = "SELECT employee_id FROM employees ORDER BY employee_id";
+        $result = $db->conn->query($query);
 
-		if ($result) {
-			while ($row = $result->fetch_assoc()) {
-				$employee_ids[] = $row['employee_id'];
-			}
-		}
-		$db->closeDB();
-		return $employee_ids;
-	}
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $employee_ids[] = $row['employee_id'];
+            }
+        }
+        $db->closeDB();
+        return $employee_ids;
+    }
 
-	$employee_ids = getEmployeeIds();
+    $employee_ids = getEmployeeIds();
 
     
     function getLocations() {
@@ -78,38 +78,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Departamento</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../src/css/AddDepartment.css">
 </head>
 <body>
-    <h1>Añadir un Nuevo Departamento</h1>
-    <form method="POST" action="">
-        <label>ID Departamento:</label><br>
-        <input type="number" name="department_id" required><br><br>
+    <div class="container mt-5">
+        <h1 class="mb-4">Añadir un Nuevo Departamento</h1>
+        <form method="POST" action="">
+            <div class="form-group">
+                <label>ID Departamento:</label>
+                <input type="number" name="department_id" class="form-control" required>
+            </div>
 
-        <label>Nombre del Departamento:</label><br>
-        <input type="text" name="department_name" required><br><br>
+            <div class="form-group">
+                <label>Nombre del Departamento:</label>
+                <input type="text" name="department_name" class="form-control" required>
+            </div>
 
+            <div class="form-group">
+                <label>Ubicación del Departamento:</label>
+                <select name="location" class="form-control">
+                    <option value="">Seleccione una ubicación</option>
+                    <?php foreach ($locations as $location): ?>
+                    <option value="<?= $location ?>"><?= $location ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label>Ubicación del Departamento:</label><br>
-        <select name="location">
-            <option value="">Seleccione una ubicación</option>
-            <?php foreach ($locations as $location): ?>
-            <option value="<?= $location ?>"><?= $location ?></option>
-            <?php endforeach; ?>
-        </select><br><br>
+            <div class="form-group">
+                <label>Gerente del departamento:</label>
+                <select name="manager_id" class="form-control">
+                    <option value="">Seleccione un gerente</option>
+                    <?php foreach ($employee_ids as $id): ?>
+                        <option value="<?= $id ?>"><?= $id ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label>Gerente del departamento:</label><br>
-			<select name="manager_id">
-				<option value="">Seleccione un gerente</option>
-				<?php foreach ($employee_ids as $id): ?>
-					<option value="<?= $id ?>"><?= $id ?></option>
-				<?php endforeach; ?>
-			</select><br><br>
-
-        <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
-        <input type="submit" value="Añadir Departamento">
-    </form>
+            <div class="form-group">
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='../../../index.php'">Cancelar</button>
+                <input type="submit" class="btn btn-primary" value="Añadir Departamento">
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-

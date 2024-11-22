@@ -89,26 +89,6 @@
 				<button type="button">Lista de almacenes</button>
 			</a>
 		</div>
-
-		<div> <h1> Inventories </h1>
-			<h2>Menú de Gestión de inventarios</h2>
-			<a href="src/html/inventories/AddInventory.php">
-				<button type="button">Añadir o actualizar inventario</button>
-			</a>
-			<a href="src/html/inventories/ReadInventory.php?action=view_inventories">
-				<button type="button">Lista de inventarios</button>
-			</a>
-		</div>
-
-		<div class="center"> <h1>  Orders, Order Items, Product Information </h1>
-			<h2> Menú de Gestión de pedidos, artículos de pedido, información del producto</h2>
-			<a href="src/html/warehouses/AddWarehouse.php">
-				<button type="button">Añadir o actualizar almacén</button>
-			</a>
-			<a href="src/html/warehouses/ReadWarehouse.php?action=view_warehouses">
-				<button type="button">Lista de almacenes</button>
-			</a>
-		</div>
 		
 	</body>
 	

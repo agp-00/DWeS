@@ -168,4 +168,3 @@ class Customer extends Model {
     }
 }
 
-?>

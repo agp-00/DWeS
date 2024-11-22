@@ -3,29 +3,29 @@
     require_once '../../../vendor/autoload.php';
 
     function convertToNull($value) {
-		return $value === '' ? null : $value;
-	}
-
-	use Config\Database;
-	use Models\Customer;
-    function getEmployeeIds() {
-        $db = new Database();
-        $db->connectDB('C:/temp/config.db');
-        $employee_ids = [];
-        
-        $query = "SELECT employee_id FROM employees ORDER BY employee_id";
-        $result = $db->conn->query($query);
-
-        if ($result) {
-            while ($row = $result->fetch_assoc()) {
-                $employee_ids[] = $row['employee_id'];
-            }
-        }
-        $db->closeDB();
-        return $employee_ids;
+        return $value === '' ? null : $value;
     }
 
-    $employee_ids = getEmployeeIds();
+    use Config\Database;
+    use Models\Customer;
+	function getEmployeeIds() {
+		$db = new Database();
+		$db->connectDB('C:/temp/config.db');
+		$employee_ids = [];
+		
+		$query = "SELECT employee_id FROM employees ORDER BY employee_id";
+		$result = $db->conn->query($query);
+
+		if ($result) {
+			while ($row = $result->fetch_assoc()) {
+				$employee_ids[] = $row['employee_id'];
+			}
+		}
+		$db->closeDB();
+		return $employee_ids;
+	}
+
+	$employee_ids = getEmployeeIds();
 
     try {
         // Si el formulario ha sido enviado
@@ -80,72 +80,109 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Cliente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../src/css/AddCustomer.css">
 </head>
 <body>
-    <h1>Añadir un Nuevo Cliente</h1>
-    <form method="POST" action="">
-        <label>ID Cliente:</label><br>
-        <input type="number" name="customer_id" required><br><br>
+    <div class="container">
+        <h1 class="mt-5">Añadir un Nuevo Cliente</h1>
+        <form method="POST" action="" class="mt-4">
+            <div class="form-group">
+                <label>ID Cliente:</label>
+                <input type="number" name="customer_id" class="form-control" required>
+            </div>
 
-        <label>Nombre:</label><br>
-        <input type="text" name="cust_first_name" required><br><br>
+            <div class="form-group">
+                <label>Nombre:</label>
+                <input type="text" name="cust_first_name" class="form-control" required>
+            </div>
 
-        <label>Apellido:</label><br>
-        <input type="text" name="cust_last_name" required><br><br>
+            <div class="form-group">
+                <label>Apellido:</label>
+                <input type="text" name="cust_last_name" class="form-control" required>
+            </div>
 
-        <label>Dirección:</label><br>
-        <input type="text" name="cust_street_address"><br><br>
+            <div class="form-group">
+                <label>Dirección:</label>
+                <input type="text" name="cust_street_address" class="form-control">
+            </div>
 
-        <label>Código Postal:</label><br>
-        <input type="text" name="cust_postal_code"><br><br>
+            <div class="form-group">
+                <label>Código Postal:</label>
+                <input type="text" name="cust_postal_code" class="form-control">
+            </div>
 
-        <label>Ciudad:</label><br>
-        <input type="text" name="cust_city"><br><br>
+            <div class="form-group">
+                <label>Ciudad:</label>
+                <input type="text" name="cust_city" class="form-control">
+            </div>
 
-        <label>Estado:</label><br>
-        <input type="text" name="cust_state"><br><br>
+            <div class="form-group">
+                <label>Estado:</label>
+                <input type="text" name="cust_state" class="form-control">
+            </div>
 
-        <label>País:</label><br>
-        <input type="text" name="cust_country"><br><br>
+            <div class="form-group">
+                <label>País:</label>
+                <input type="text" name="cust_country" class="form-control">
+            </div>
 
-        <label>Números de Teléfono:</label><br>
-        <input type="text" name="phone_numbers"><br><br>
+            <div class="form-group">
+                <label>Número de Teléfono:</label>
+                <input type="text" name="phone_numbers" class="form-control">
+            </div>
 
-        <label>Territorio (NLS):</label><br>
-        <input type="text" name="nls_territory"><br><br>
+            <div class="form-group">
+                <label>Territorio (NLS):</label>
+                <input type="text" name="nls_territory" class="form-control">
+            </div>
 
-        <label>Email:</label><br>
-        <input type="email" name="cust_email"><br><br>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="cust_email" class="form-control">
+            </div>
 
-        <!-- Desplegable para ID del Gerente de Cuenta -->
-        <label>ID del Gerente de Cuenta:</label><br>
-        <select name="account_mgr_id">
-        <option value="">Seleccione un gerente</option>
-				<?php foreach ($employee_ids as $id): ?>
-					<option value="<?= $id ?>"><?= $id ?></option>
-				<?php endforeach; ?>
-			</select><br><br>
+            <div class="form-group">
+                <label>ID del Gerente de Cuenta:</label>
+                <select name="account_mgr_id" class="form-control">
+                    <option value="">Seleccione un gerente</option>
+                    <?php foreach ($employee_ids as $id): ?>
+                        <option value="<?= $id ?>"><?= $id ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label>Fecha de Nacimiento:</label><br>
-        <input type="date" name="date_of_birth"><br><br>
+            <div class="form-group">
+                <label>Fecha de Nacimiento:</label>
+                <input type="date" name="date_of_birth" class="form-control">
+            </div>
 
-        <label>Estado Civil:</label><br>
-        <select name="marital_status">
-            <option value="">Selecciona el estado civil</option>
-            <option value="single">Soltero</option>
-            <option value="married">Casado</option>
-        </select><br><br>
+            <div class="form-group">
+                <label>Estado Civil:</label>
+                <select name="marital_status" class="form-control">
+                    <option value="">Selecciona el estado civil</option>
+                    <option value="single">Soltero</option>
+                    <option value="married">Casado</option>
+                </select>
+            </div>
 
-        <label>Género:</label><br>
-        <select name="gender">
-            <option value="">Selecciona el género</option>
-            <option value="M">Masculino</option>
-            <option value="F">Femenino</option>
-        </select><br><br>
+            <div class="form-group">
+                <label>Género:</label>
+                <select name="gender" class="form-control">
+                    <option value="">Selecciona el género</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+            </div>
 
-        <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
-        <input type="submit" value="Añadir Cliente">
-    </form>
+            <div class="form-group">
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='../../../index.php'">Cancelar</button>
+                <input type="submit" class="btn btn-primary" value="Añadir Cliente">
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

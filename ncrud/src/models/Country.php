@@ -13,7 +13,7 @@ class Country extends Model {
         public ?string $country_id = null,
         public ?string $country_name = null,
         public ?string $country_code = null,
-        public ?string $region_id = null
+        public ?string $region_name = null
     ) { }
 
     // Método para guardar el país en la base de datos
@@ -28,13 +28,13 @@ class Country extends Model {
             if (isset($this->country_id)) {
                 // Preparar la consulta INSERT / UPDATE
                 $sql = "INSERT INTO $table (
-                    country_id, country_name, country_code, region
+                    country_id, country_name, country_code, region_id
                 ) VALUES (
                     ?, ?, ?, ?
                 ) ON DUPLICATE KEY UPDATE
                     country_name = VALUES(country_name),
                     country_code = VALUES(country_code),
-                    region = VALUES(region)";
+                    region_id = VALUES(region_id)";
                 
                 $stmt = $db->conn->prepare($sql);
 
@@ -44,7 +44,7 @@ class Country extends Model {
                     $this->country_id,
                     $this->country_name,
                     $this->country_code,
-                    $this->region
+                    $this->region_id
                 );
 
                 $stmt->execute();
@@ -105,12 +105,12 @@ class Country extends Model {
             $db->connectDB('C:/temp/config.db');
 
             // Obtener valores únicos de 'region' en la tabla 'countries'
-            $sql = "SELECT DISTINCT region FROM " . static::$table . " WHERE region IS NOT NULL";
+            $sql = "SELECT DISTINCT region_id FROM " . static::$table . " WHERE region_id IS NOT NULL";
             $result = $db->conn->query($sql);
 
             $regions = [];
             while ($row = $result->fetch_assoc()) {
-                $regions[] = $row['region'];
+                $regions[] = $row['region_id'];
             }
             return $regions;
         } catch (\Exception $e) {

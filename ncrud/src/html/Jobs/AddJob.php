@@ -35,26 +35,40 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-        <meta charset="UTF-8">
-        <title>Formulario de Trabajo</title>
-    </head>
-    <body>
-        <h1>Añadir o actualizar trabajo</h1>
-        <form method="POST" action="">
-            <label>ID del Trabajo:</label><br>
-            <input type="text" name="job_id" required><br><br>
+    <meta charset="UTF-8">
+    <title>Formulario de Trabajo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Añadir o actualizar trabajo</h1>
+        <form method="POST" action="" class="mt-4">
+            <div class="form-group">
+                <label>ID del Trabajo:</label>
+                <input type="text" name="job_id" class="form-control" required>
+            </div>
             
-            <label>Título del Trabajo:</label><br>
-            <input type="text" name="job_title" required><br><br>
+            <div class="form-group">
+                <label>Título del Trabajo:</label>
+                <input type="text" name="job_title" class="form-control" required>
+            </div>
             
-            <label>Salario Mínimo:</label><br>
-            <input type="number" name="min_salary" step="0.01" required><br><br>
+            <div class="form-group">
+                <label>Salario Mínimo:</label>
+                <input type="number" name="min_salary" step="0.01" class="form-control" required>
+            </div>
             
-            <label>Salario Máximo:</label><br>
-            <input type="number" name="max_salary" step="0.01" required><br><br>
+            <div class="form-group">
+                <label>Salario Máximo:</label>
+                <input type="number" name="max_salary" step="0.01" class="form-control" required>
+            </div>
             
-            <button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
-            <input type="submit" value="Añadir Trabajo">
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='../../../index.php'">Cancelar</button>
+            <input type="submit" class="btn btn-primary" value="Añadir Trabajo">
         </form>
-    </body>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

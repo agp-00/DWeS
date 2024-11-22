@@ -1,7 +1,7 @@
 <?php
-    require_once '../../../vendor/autoload.php';
+	require_once '../../../vendor/autoload.php';
 
-    function convertToNull($value) {
+	function convertToNull($value) {
 		return $value === '' ? null : $value;
 	}
 
@@ -32,12 +32,12 @@
 		$db->connectDB('C:/temp/config.db');
 		$department_ids = [];
 		
-		$query = "SELECT department_name FROM departments ORDER BY department_name";
+		$query = "SELECT department_id FROM departments ORDER BY department_id";
 		$result = $db->conn->query($query);
 
 		if ($result) {
 			while ($row = $result->fetch_assoc()) {
-				$department_ids[] = $row['department_name'];
+				$department_ids[] = $row['department_id'];
 			}
 		}
 		$db->closeDB();
@@ -87,57 +87,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-		<meta charset="UTF-8">
-		<title>Formulario de Empleado</title>
-	</head>
-	<body>
-		<h1>Añadir o actualizar empleado</h1>
+	<meta charset="UTF-8">
+	<title>Formulario de Empleado</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container mt-5">
+		<h1 class="mb-4">Añadir o actualizar empleado</h1>
 		<form method="POST" action="">
-			<label>ID Empleado:</label><br>
-			<input type="number" name="employee_id" required><br><br>
+			<div class="form-group">
+				<label>ID Empleado:</label>
+				<input type="number" class="form-control" name="employee_id" required>
+			</div>
 			
-			<label>Nombre:</label><br>
-			<input type="text" name="first_name" required><br><br>
+			<div class="form-group">
+				<label>Nombre:</label>
+				<input type="text" class="form-control" name="first_name" required>
+			</div>
 			
-			<label>Apellido:</label><br>
-			<input type="text" name="last_name" required><br><br>
+			<div class="form-group">
+				<label>Apellido:</label>
+				<input type="text" class="form-control" name="last_name" required>
+			</div>
 			
-			<label>Email:</label><br>
-			<input type="email" name="email" required><br><br>
+			<div class="form-group">
+				<label>Email:</label>
+				<input type="email" class="form-control" name="email" required>
+			</div>
 			
-			<label>Número de Teléfono:</label><br>
-			<input type="text" name="phone_number"><br><br>
+			<div class="form-group">
+				<label>Número de Teléfono:</label>
+				<input type="text" class="form-control" name="phone_number">
+			</div>
 			
-			<label>Fecha de Contratación:</label><br>
-			<input type="date" name="hire_date" required><br><br>
+			<div class="form-group">
+				<label>Fecha de Contratación:</label>
+				<input type="date" class="form-control" name="hire_date" required>
+			</div>
 			
-			<label>ID del Trabajo:</label><br>
-			<input type="text" name="job_id" required><br><br>
+			<div class="form-group">
+				<label>ID del Trabajo:</label>
+				<input type="text" class="form-control" name="job_id" required>
+			</div>
 			
-			<label>Salario:</label><br>
-			<input type="number" name="salary" step="0.01" required><br><br>
+			<div class="form-group">
+				<label>Salario:</label>
+				<input type="number" class="form-control" name="salary" step="0.01" required>
+			</div>
 			
-			<label>Comisión:</label><br>
-			<input type="number" name="commission_pct" step="0.01"><br><br>
+			<div class="form-group">
+				<label>Comisión:</label>
+				<input type="number" class="form-control" name="commission_pct" step="0.01">
+			</div>
 			
-			<label>ID del Gerente:</label><br>
-			<select name="manager_id">
-				<option value="">Seleccione un gerente</option>
-				<?php foreach ($employee_ids as $id): ?>
-					<option value="<?= $id ?>"><?= $id ?></option>
-				<?php endforeach; ?>
-			</select><br><br>
+			<div class="form-group">
+				<label>ID del Gerente:</label>
+				<select class="form-control" name="manager_id">
+					<option value="">Seleccione un gerente</option>
+					<?php foreach ($employee_ids as $id): ?>
+						<option value="<?= $id ?>"><?= $id ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
 			
-			<label>Departamento:</label><br>
-			<select name="department_id">
-				<option value="">Seleccione un departamento</option>
-				<?php foreach ($department_ids as $id): ?>
-					<option value="<?= $id ?>"><?= $id ?></option>
-				<?php endforeach; ?>
-			</select><br><br>
+			<div class="form-group">
+				<label>Departamento:</label>
+				<select class="form-control" name="department_id">
+					<option value="">Seleccione un departamento</option>
+					<?php foreach ($department_ids as $id): ?>
+						<option value="<?= $id ?>"><?= $id ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
 
-			<button type="button" onclick="window.location.href='../../../index.php'">Cancelar</button>
-			<input type="submit" value="Afegir Empleat">
+			<div class="form-group">
+				<button type="button" class="btn btn-secondary" onclick="window.location.href='../../../index.php'">Cancelar</button>
+				<input type="submit" class="btn btn-primary" value="Afegir Empleat">
+			</div>
 		</form>
-	</body>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
