@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('spaces', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100)->nullable();
+            $table->string('regNumber', 100)->unique();
+            $table->string('observation_CA',100)->nullable();
+            $table->string('observation_ES',100)->nullable();
+            $table->string('observation_EN',100)->nullable();
+            $table->string('email',100)->nullable();
+            $table->string('phone',100)->nullable();
+            $table->string('website',100)->nullable();
+            $table->string('accessType',1)->nullable();
+            $table->number('totalScore')->nullable();
+            $table->number('countStore')->nullable();
+            $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
+            $table->foreign('space_type_id')->references('id')->on('space_types')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

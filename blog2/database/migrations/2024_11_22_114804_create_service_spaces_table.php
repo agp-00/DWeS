@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('service_spaces', function (Blueprint $table) {
             $table->id();
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+            $table->foreignId('space_id')->references('id')->on('spaces')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('municipalities', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100)->nullable();
+            $table->foreign('island_id')->references('id')->on('islands')->onDelete('cascade');
             $table->timestamps();
         });
     }

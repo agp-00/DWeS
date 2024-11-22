@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->string('comment', 100)->nullable();
+            $table->number('score')->nullable();
+            $table->string('status',1)->nullable();
+            $table->foreign('space_id')->references('id')->on('spaces')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

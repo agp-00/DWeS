@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('space_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100)->nullable();
+            $table->string('description_CA', 100)->nullable();
+            $table->string('description_ES', 100)->nullable();
+            $table->string('description_EN', 100)->nullable();
             $table->timestamps();
         });
     }
