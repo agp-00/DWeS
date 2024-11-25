@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('islands', function (Blueprint $table) {
             $table->id();
-            $table->string('url', 100)->nullable();
-            $table->foreignId('comment_id')->constrained('comments')->onUpdate('restrict')->onDelete('restrict');
+            $table->string('name',100);
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('islands');
     }
 };

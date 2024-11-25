@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zones', function (Blueprint $table) {
+        Schema::create('municipalities', function (Blueprint $table) {
             $table->id();
-            $table->string('name',100)->nullable();
+            $table->string('name', 100);
+            $table->foreignId('island_id')->constrained('islands')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -23,6 +24,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zones');
+        Schema::table('spaces', function (Blueprint $table) {
+            $table->dropForeign(['island_id']);
+        });
+
+        Schema::dropIfExists('municipalities');
     }
 };

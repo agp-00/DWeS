@@ -24,6 +24,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('spaces', function (Blueprint $table) {
+            $table->dropForeign(['space_id']);
+            $table->dropForeign(['service_id']);
+        });
+
         Schema::dropIfExists('service_spaces');
     }
 };

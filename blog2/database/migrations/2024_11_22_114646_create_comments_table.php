@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
 
 return new class extends Migration
 {
@@ -13,13 +15,49 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('comment', 100)->nullable();
-            $table->number('score')->nullable();
-            $table->string('status',1)->nullable();
+            $table->string('comment', 100);
+            $table->double('score');
+            $table->string('status',1);
             $table->foreignId('space_id')->constrained('spaces')->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('user_id')->constrained('users')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
+        
+        DB::statement('
+            CREATE TRIGGER update_scores_after_insert
+            AFTER INSERT ON comments
+            FOR EACH ROW
+            BEGIN
+                UPDATE spaces
+                SET totalScore = totalScore + IFNULL(NEW.score, 0),
+                    countScore = countScore + 1
+                WHERE id = NEW.space_id;
+            END;
+        ');
+
+        DB::statement('
+            CREATE TRIGGER update_scores_after_update
+            AFTER UPDATE ON comments
+            FOR EACH ROW
+            BEGIN
+                UPDATE spaces
+                SET totalScore = totalScore + IFNULL(NEW.score, 0) - IFNULL(OLD.score, 0)
+                WHERE id = NEW.space_id;
+            END;
+        ');
+
+        DB::statement('
+            CREATE TRIGGER update_scores_after_delete
+            AFTER DELETE ON comments
+            FOR EACH ROW
+            BEGIN
+                UPDATE spaces
+                SET totalScore = totalScore - IFNULL(OLD.score, 0),
+                    countScore = countScore - 1
+                WHERE id = OLD.space_id;
+            END;
+        ');
+
     }
 
     /**
@@ -27,6 +65,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('spaces', function (Blueprint $table) {
+            $table->dropForeign(['space_id']);
+            $table->dropForeign(['user_id']);
+        });
+
         Schema::dropIfExists('comments');
     }
 };

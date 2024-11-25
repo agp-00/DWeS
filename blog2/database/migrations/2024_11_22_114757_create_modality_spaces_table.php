@@ -24,6 +24,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('spaces', function (Blueprint $table) {
+            $table->dropForeign(['modality_id']);
+            $table->dropForeign(['space_id']);
+        });
+
         Schema::dropIfExists('modality_spaces');
     }
 };

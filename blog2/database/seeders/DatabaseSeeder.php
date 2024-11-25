@@ -13,12 +13,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(IslandSeeder::class);
+        $this->call(MunicipalitySeeder::class);
+        $this->call(ZoneSeeder::class);
+        $this->call(SpaceTypeSeeder::class);
+        $this->call(ModalitySeeder::class);
+        $this->call(ServiceSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(TranslationSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(SpaceSeeder::class);
+        $this->call(CommentSeeder::class);
+        $this->call(ModalitySpaceSeeder::class);
+        $this->call(ServiceSpaceSeeder::class);
+        $this->call(ImageSeeder::class);
+
         // User::factory(10)->create();
 
-        User::factory()->create([
+       /* User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-        ]);
+        ]);*/
     }
 }

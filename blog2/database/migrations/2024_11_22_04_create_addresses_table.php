@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('nom', 100)->nullable();
+            $table->string('nom', 100);
             $table->foreignId('municipality_id')->constrained('municipalities')->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('zone_id')->constrained('zones')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
@@ -25,9 +25,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropForeign('posts_user_id_foreign');
+        Schema::table('spaces', function (Blueprint $table) {
+            $table->dropForeign(['municipality_id']);
+            $table->dropForeign(['zone_id']);
         });
+
         Schema::dropIfExists('addresses');
     }
 };
