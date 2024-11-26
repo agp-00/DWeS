@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('comment', 100);
+            $table->text('comment');
             $table->double('score');
-            $table->string('status',1);
+            $table->enum('status',['y','n']);
             $table->foreignId('space_id')->constrained('spaces')->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('user_id')->constrained('users')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();

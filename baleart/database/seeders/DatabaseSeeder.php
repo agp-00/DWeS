@@ -24,9 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(SpaceSeeder::class);
         $this->call(CommentSeeder::class);
-        $this->call(ModalitySpaceSeeder::class);
-        $this->call(ServiceSpaceSeeder::class);
-        $this->call(ImageSeeder::class);
 
         // User::factory(10)->create();
 

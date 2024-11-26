@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Modality extends Model
 {
-    public function modalitySpaces()
+    public function Spaces()
     {
-        return $this->hasMany(ModalitySpace::class);
+        return $this->hasMany(Space::class);
     }
 }
