@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Zone;
 use App\Models\Space;
 use App\Models\Address;
+use App\Models\Service;
+use App\Models\Modality;
 use App\Models\SpaceType;
 use App\Models\Municipality;
 use Illuminate\Database\Seeder;
@@ -61,8 +63,32 @@ class SpaceSeeder extends Seeder
                 ]);                
                 
             }
+            
+            foreach ($spaces as $space) {
+                
+                $services = explode(',', $space['serveis']);
+                foreach ($services as $service) {
+                    $serviceModel = Service::where('name', trim($service))->first();
+                    if ($serviceModel) {
+                        $spaceModel = Space::where('name', $space['nom'])->first();
+                        if ($spaceModel) {
+                            $spaceModel->services()->attach($serviceModel->id);
+                        }
+                    }
+                }
 
-            $modality = Modality::where('name', explode( ',' , $space['tipus']))->first();
+                $modalities = explode(',', $space['modalitats']);
+                foreach ($modalities as $modality) {
+                    $modalityModel = Modality::where('name', trim($modality))->first();
+                    if ($modalityModel) {
+                        $spaceModel = Space::where('name', $space['nom'])->first();
+                        if ($spaceModel) {
+                            $spaceModel->modalities()->attach($modalityModel->id);
+                        }
+                    }
+                }
+
+            }
 
         }
     }

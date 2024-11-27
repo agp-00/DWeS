@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    public function services()
+    public function Spaces()
     {
         return $this->hasMany(Space::class);
     }

@@ -8,7 +8,7 @@ class Space extends Model
 {
     public function modalities()
     {
-        return $this->hasMany(modality::class);
+        return $this->belongsToMany(modality::class);
     }
 
     public function comments()
@@ -33,6 +33,7 @@ class Space extends Model
 
     public function services()
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsToMany(Service::class);
     }
+    
 }
