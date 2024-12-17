@@ -3,9 +3,17 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Image;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\RoleSeeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\ZoneSeeder;
+use Database\Seeders\IslandSeeder;
+use Database\Seeders\ServiceSeeder;
+use Database\Seeders\ModalitySeeder;
+use Database\Seeders\SpaceTypeSeeder;
+use Database\Seeders\MunicipalitySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,26 +22,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(IslandSeeder::class);
-        $this->call(MunicipalitySeeder::class);
-        $this->call(ZoneSeeder::class);
-        $this->call(SpaceTypeSeeder::class);
-        $this->call(ModalitySeeder::class);
-        $this->call(ServiceSeeder::class);
+        // Seeders
         $this->call(RoleSeeder::class);
-        $this->call(TranslationSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(IslandSeeder::class);
+        $this->call(ZoneSeeder::class);
+
+        // JSON
+        $this->call(MunicipalitySeeder::class);
+        $this->call(SpaceTypeSeeder::class);
+        $this->call(ServiceSeeder::class);
+        $this->call(ModalitySeeder::class);
         $this->call(SpaceSeeder::class);
         $this->call(CommentSeeder::class);
-
-        User::factory(15)->create();
-        Image::factory(15)->create();
-
-        // User::factory(10)->create();
-
-       /* User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);*/
+        
+        // Factories
+        User::factory(50)->create();
+        Image::factory(50)->create();
     }
 }

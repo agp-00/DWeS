@@ -13,21 +13,17 @@ class ModalitySeeder extends Seeder
      */
     public function run(): void
     {
-        {
-            // Des d'un arxiu JSON
-            $jsonData = file_get_contents('c:\\temp\\baleart\\modalitats.json');
-            $modalities = json_decode($jsonData, true);
-    
-            // Insertar cada registro en la tabla
-            foreach ($modalities['modalitats']['modalitat'] as $modality) {
-                Modality::create([
-                    'name'     => $modality['cat'],
-                    'description_CA'     => $modality['cat'],
-                    'description_ES'     => $modality['esp'],
-                    'description_EN'     => $modality['eng'],
-                ]);
-            }
-    
+        // Des d'un arxiu JSON
+        $jsonData = file_get_contents('c:\\temp\\baleart\\modalitats.json');
+        $modalities = json_decode($jsonData, true);
+
+        foreach ($modalities['modalitats']['modalitat'] as $modality) {
+            Modality::create([
+                'name'           => $modality['cat'],
+                'description_CA' => $modality['cat'],
+                'description_ES' => $modality['esp'],
+                'description_EN' => $modality['eng']
+            ]);
         }
     }
 }

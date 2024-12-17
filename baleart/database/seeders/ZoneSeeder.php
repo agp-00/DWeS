@@ -13,16 +13,13 @@ class ZoneSeeder extends Seeder
      */
     public function run(): void
     {
-        // Des d'un arxiu JSON
-        $jsonData = file_get_contents('c:\\temp\\baleart\\zones.json');
+        $jsonData = file_get_contents("C:\\temp\\baleart\\zones.json");
         $zones = json_decode($jsonData, true);
 
-        // Insertar cada registro en la tabla
-        foreach ($zones['zones']['zona'] as $zone) {
+        foreach($zones["zones"]["zona"] as $zona) {
             Zone::create([
-                'name'     => $zone['Nom'],
+                "name" => $zona["Nom"]
             ]);
         }
-
     }
 }

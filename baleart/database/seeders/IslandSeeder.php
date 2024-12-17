@@ -11,18 +11,20 @@ class IslandSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-
     public function run(): void
     {
-        $illes = ['Mallorca', 'Eivissa', 'Menorca', 'Formentera'];
+        $islands = [
+            'Mallorca',
+            'Menorca',
+            'Eivissa',
+            'Formentera',
+            'Cabrera'
+        ];
 
-        // Insertar cada registro en la tabla
-        foreach ($illes as $illa) {
-            Island::create([
-                'name'     => $illa,
-            ]);
+        foreach ($islands as $island) {
+            $newIsland = new Island();
+            $newIsland->name = $island;
+            $newIsland->save();
         }
-
     }
-
 }

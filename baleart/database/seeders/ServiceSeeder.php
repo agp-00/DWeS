@@ -13,21 +13,17 @@ class ServiceSeeder extends Seeder
      */
     public function run(): void
     {
-        {
-            // Des d'un arxiu JSON
-            $jsonData = file_get_contents('c:\\temp\\baleart\\serveis.json');
-            $services = json_decode($jsonData, true);
-    
-            // Insertar cada registro en la tabla
-            foreach ($services['serveis']['servei'] as $service) {
-                Service::create([
-                    'name'     => $service['cat'],
-                    'description_CA'     => $service['cat'],
-                    'description_ES'     => $service['esp'],
-                    'description_EN'     => $service['eng'],
-                ]);
-            }
-    
+        // Des d'un arxiu JSON
+        $jsonData = file_get_contents('c:\\temp\\baleart\\serveis.json');
+        $services = json_decode($jsonData, true);
+
+        foreach ($services['serveis']['servei'] as $service) {
+            Service::create([
+                'name'           => $service['cat'],
+                'description_CA' => $service['cat'],
+                'description_ES' => $service['esp'],
+                'description_EN' => $service['eng']
+            ]);
         }
     }
 }

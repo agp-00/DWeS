@@ -13,15 +13,16 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        // Des d'un arxiu JSON
-        $jsonData = file_get_contents('c:\\temp\\baleart\\rols.json');
-        $roles = json_decode($jsonData, true);
+        $roles = [
+            'admin',
+            'gestor',
+            'registrat'
+        ];
 
-        // Insertar cada registro en la tabla
-        foreach ($roles['roles']['role'] as $role) {
-            Role::create([
-                'name'     => $role['Nom'],
-            ]);
+        foreach ($roles as $role) {
+            $newrole = new Role();
+            $newrole->name = $role;
+            $newrole->save();
         }
 
     }

@@ -16,16 +16,13 @@ class MunicipalitySeeder extends Seeder
     {
         // Des d'un arxiu JSON
         $jsonData = file_get_contents('c:\\temp\\baleart\\municipis.json');
-        $municipilaties = json_decode($jsonData, true);
+        $municipalities = json_decode($jsonData, true);
 
-        // Insertar cada registro en la tabla
-        foreach ($municipilaties['municipis']['municipi'] as $municipality) {
+        foreach ($municipalities['municipis']['municipi'] as $municipality) {
             Municipality::create([
-                'name'     => $municipality['Nom'],
-                'island_id' => Island::where('name', $municipality['Illa'])->first()->id,
+                'name' => $municipality['Nom'],
+                'island_id' => Island::where('name', $municipality['Illa'])->first()->id
             ]);
         }
-
     }
-
 }

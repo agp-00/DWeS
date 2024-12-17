@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Space;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    public function Spaces()
+    public function spaces()
     {
-        return $this->hasMany(Space::class);
+      return $this->belongsToMany(Space::class);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Island;
+use App\Models\Address;
 use Illuminate\Database\Eloquent\Model;
 
 class Municipality extends Model
@@ -10,6 +12,7 @@ class Municipality extends Model
     {
         return $this->belongsTo(Island::class);
     }
+
     public function addresses()
     {
         return $this->hasMany(Address::class);

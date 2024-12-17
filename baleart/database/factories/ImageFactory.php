@@ -3,11 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Comment;
-use App\Models\SpaceType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Image>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
 class ImageFactory extends Factory
 {
@@ -18,15 +17,9 @@ class ImageFactory extends Factory
      */
     public function definition(): array
     {
-        //$spaces = json_decode(file_get_contents('c:\\temp\\baleart\\espais.json'), true);
-        //$space = $spaces[array_rand($spaces)];
-            
         return [
-
-            'url' => fake()->imageUrl(),
-            //'comment_id' => SpaceType::where('name', $space['tipus'])->first()->id,
+            'url' => $this->faker->imageUrl(),
             'comment_id' => Comment::inRandomOrder()->first()->id,
         ];
-        
     }
 }

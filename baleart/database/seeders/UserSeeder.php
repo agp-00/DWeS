@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
@@ -14,37 +15,33 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
- 
-        $User = new User();
-        $User->Name = 'Adrian';
-        $User->lastName = 'Gomez';
-        $User->email = 'admin@baleart.com';
-        $User->phone = '666666666';
-        $User->password = bcrypt('12345678');
-        $User->role_id = Role::where('name', "administrador")->first()->id;
-        $User->save();
-
+        // Usuari d'inici
+        $adminRole = Role::where('name', 'admin')->value('id');
+        $user = USER::create([
+            'name'      => 'admin',
+            'lastname'  => 'admin',
+            'email'     => 'admin@baleart.com',
+            'email_verified_at' => now(),
+            'phone'     => '971123456',
+            'password'  => Hash::make('12345678'),
+            'role_id'   => $adminRole,
+        ]);
 
         // Des d'un arxiu JSON
         $jsonData = file_get_contents('c:\\temp\\baleart\\usuaris.json');
         $usuaris = json_decode($jsonData, true);
 
-        // Insertar cada registro en la tabla
-
+        $gestorRole = Role::where('name', 'gestor')->value('id');
         foreach ($usuaris['usuaris']['usuari'] as $usuari) {
             User::create([
-                'Name'     => $usuari['nom'],
-                'lastName' => $usuari['llinatges'],
-                'email' => $usuari['email'],
-                'phone' => $usuari['telefon'],
-                'password' => $usuari['password'],
-                'role_id' => Role::where('name', "gestor")->first()->id,
+                'name'      => $usuari['nom'],
+                'lastname'  => $usuari['llinatges'],
+                'email'     => $usuari['email'],
+                'email_verified_at' => now(),
+                'phone'     => $usuari['telefon'],
+                'password'  => Hash::make('12345678'),
+                'role_id'   => $gestorRole,
             ]);
         }
-
-        //administrador
-
-        //factory visitantes
-
     }
 }

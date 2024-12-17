@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\SpaceType;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class SpaceTypeSeeder extends Seeder
 {
@@ -13,21 +13,17 @@ class SpaceTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        {
-            // Des d'un arxiu JSON
-            $jsonData = file_get_contents('c:\\temp\\baleart\\tipus.json');
-            $types = json_decode($jsonData, true);
-    
-            // Insertar cada registro en la tabla
-            foreach ($types['tipusespais']['tipus'] as $type) {
-                SpaceType::create([
-                    'name'     => $type['cat'],
-                    'description_CA'     => $type['cat'],
-                    'description_ES'     => $type['esp'],
-                    'description_EN'     => $type['eng'],
-                ]);
-            }
-    
+        // Des d'un arxiu JSON
+        $jsonData = file_get_contents('c:\\temp\\baleart\\tipus.json');
+        $spaceTypes = json_decode($jsonData, true);
+
+        foreach ($spaceTypes['tipusespais']['tipus'] as $spaceType) {
+            SpaceType::create([
+                'name'           => $spaceType['cat'],
+                'description_CA' => $spaceType['cat'],
+                'description_ES' => $spaceType['esp'],
+                'description_EN' => $spaceType['eng']
+            ]);
         }
     }
 }
