@@ -9,6 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
+
+    protected $primaryKey = 'id';
+    protected $keyType = 'int';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'name',
+    ];
+
+    protected $guarded = [
+        'id',
+    ];
+
+
+
     public function space()
     {
         return $this->hasOne(Space::class);
