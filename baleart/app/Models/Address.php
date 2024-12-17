@@ -16,10 +16,17 @@ class Address extends Model
 
     protected $fillable = [
         'name',
+        'municipality_id',
+        'zone_id',
     ];
 
     protected $guarded = [
         'id',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 
 

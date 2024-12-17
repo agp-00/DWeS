@@ -13,6 +13,37 @@ use Illuminate\Database\Eloquent\Model;
 
 class Space extends Model
 {
+
+  protected $primaryKey = 'id';
+  protected $keyType = 'int';
+  public $timestamps = false;
+
+  protected $fillable = [
+      'name',
+      'regNumber',
+      'observation_CA',
+      'observation_ES',
+      'observation_EN',
+      'phone',
+      'email',
+      'website',
+      'accessType',
+      'totalScore',
+      'countScore',
+      'spaceType_id',
+      'address_id',
+      'user_id',
+  ];
+
+  protected $guarded = [
+      'id',
+  ];
+
+  protected $hidden = [
+      'created_at',
+      'updated_at',
+  ];
+
     public function modalities()
     {
         return $this->belongsToMany(modality::class);
