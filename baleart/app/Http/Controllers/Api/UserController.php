@@ -34,7 +34,7 @@ class UserController extends Controller
     public function show($email)
     {
         //
-        $user = User::where('email', $email)->first(); //añadir otros apartados
+        $user = User::where('email', $email)->first(); //añadir comments e images
 
         return response()->json(new UserResource($user));
     }
@@ -47,15 +47,18 @@ class UserController extends Controller
         //
         $user = is_numeric($identifier) ? User::where('id', $identifier) : User::where('email', $identifier)->first();
 
-        /*
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+        
+
+        if ($user) {
+            echo $user->id; // This will work correctly
+        } else {
+            echo 'User not found';
         }
-        */
+        
         
         $user->update($request->all());
 
-        return response()->json(new UserResource($user));
+        return new UserResource($user);
     }
 
 
