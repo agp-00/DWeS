@@ -27,6 +27,11 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+
+    ];
+
+    protected $guarded = [
+        'id',
     ];
 
     /**
@@ -69,4 +74,20 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
     
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            foreach ($user->comments as $comment) {
+                $comment->images()->delete();
+                $comment->delete();
+            }
+            foreach ($user->spaces as $space) {
+                $space->services()->detach();
+                $space->modalities()->detach();
+                $space->delete();
+            }
+        });
+    }
 }

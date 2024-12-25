@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ImageResource extends JsonResource
+class SpaceTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +17,10 @@ class ImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'url' => $this->url,
-            'comment_id' => $this->comment_id,
+            'name' => $this->name,
+            'descripció' => $this->description_CA,
+            'descripción' => $this->description_ES,
+            'description' => $this->description_EN,
             'ultimo_update' => Carbon::parse($this->updated_at)->format('d-m-Y h:m:s'),
         ];
     }

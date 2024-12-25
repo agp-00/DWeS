@@ -27,9 +27,13 @@ class SpaceResource extends JsonResource
             "accessType" => $this->accessType,
             "totalScore" => $this->totalScore,
             "countScore" => $this->countScore,
-            "Spaces" => SpaceResource::collection($this->whenLoaded("spaces")),
-            "Addresses" => AddressResource::collection($this->whenLoaded("addresses")),
-            "Users" => UserResource::collection($this->whenLoaded("users")),
+            'address' => new AddressResource($this->whenLoaded('address')),
+            'Modalities' => ModalityResource::collection($this->whenLoaded('modalities')),
+            'Services' => ServiceResource::collection($this->whenLoaded('services')),
+            'Space Type' => new SpaceTypeResource($this->whenLoaded('spaceType')),
+            'Comments' => CommentResource::collection($this->whenLoaded('comments')),
+            //'User' => $this->user_id,
+            'User' => new UserResource($this->whenLoaded('user')),
         ];
     }
 }

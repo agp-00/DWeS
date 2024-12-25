@@ -26,10 +26,17 @@ return new class extends Migration
             AFTER INSERT ON comments
             FOR EACH ROW
             BEGIN
+            IF NEW.status = "y" THEN
                 UPDATE spaces
-                SET totalScore = totalScore + IFNULL(NEW.score, 0),
+                SET totalScore = totalScore + NEW.score,
                     countScore = countScore + 1
                 WHERE id = NEW.space_id;
+            END IF;
+            IF NEW.status = "n" THEN
+                UPDATE spaces
+                SET totalScore = totalScore
+                WHERE id = NEW.space_id;
+            END IF;
             END;
         ');
 
@@ -38,9 +45,18 @@ return new class extends Migration
             AFTER UPDATE ON comments
             FOR EACH ROW
             BEGIN
+            IF NEW.status = "y" THEN
                 UPDATE spaces
-                SET totalScore = totalScore + IFNULL(NEW.score, 0) - IFNULL(OLD.score, 0)
+                SET totalScore = totalScore + NEW.score,
+                    countScore = countScore + 1
                 WHERE id = NEW.space_id;
+            END IF;
+            IF NEW.status = "n" THEN
+                UPDATE spaces
+                SET totalScore = totalScore - OLD.score,
+                    countScore = countScore - 1
+                WHERE id = NEW.space_id;
+            END IF;
             END;
         ');
 
@@ -49,10 +65,17 @@ return new class extends Migration
             AFTER DELETE ON comments
             FOR EACH ROW
             BEGIN
+            IF OLD.status = "y" THEN
                 UPDATE spaces
-                SET totalScore = totalScore - IFNULL(OLD.score, 0),
+                SET totalScore = totalScore - OLD.score,
                     countScore = countScore - 1
                 WHERE id = OLD.space_id;
+            END IF;
+            IF OLD.status = "n" THEN
+                UPDATE spaces
+                SET totalScore = totalScore
+                WHERE id = OLD.space_id;
+            END IF;
             END;
         ');
     }

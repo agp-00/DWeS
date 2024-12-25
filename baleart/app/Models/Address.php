@@ -36,6 +36,11 @@ class Address extends Model
         return $this->hasOne(Space::class);
     }
 
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
+    }
+
     public function island()
     {
         return $this->belongsTo(Island::class);

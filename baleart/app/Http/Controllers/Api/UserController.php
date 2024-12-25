@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 
@@ -14,19 +14,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
         $users = User::all();
-
         return response()->json($users);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -42,31 +33,41 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($identifier, Request $request)
+    public function update($identifier, UserRequest $request)
     {
-        //
-        $user = is_numeric($identifier) ? User::where('id', $identifier) : User::where('email', $identifier)->first();
-
-        
+        $user = is_numeric(value: $identifier) ? User::find($identifier) : User::where('email', $identifier)->first();
 
         if ($user) {
-            echo $user->id; // This will work correctly
-        } else {
-            echo 'User not found';
-        }
-        
-        
-        $user->update($request->all());
+            $user->update($request->validated());
 
-        return new UserResource($user);
+            return new UserResource($user);
+
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
     }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+
+     public function destroy($identifier)
+     {
+         // Buscar el usuario por ID o email
+         $user = is_numeric($identifier) ? User::find($identifier) : User::where('email', $identifier)->first();
+     
+         if ($user) {
+             // Eliminar el usuario (esto también eliminará los comentarios debido al método boot)
+
+            $user->delete();
+    
+             // Retornar una respuesta de éxito
+             return response()->json(['message' => 'User and related data deleted successfully'], 200);
+         } else {
+             // Manejar el caso en que el usuario no se encuentra
+             return response()->json(['error' => 'User not found'], 404);
+         }
+     }
 }

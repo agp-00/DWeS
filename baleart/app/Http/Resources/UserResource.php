@@ -24,8 +24,6 @@ class UserResource extends JsonResource
             'password' => $this->password,
             'role' => ($this->role_id== 1) ? 'administrador' : (($this->role_id == 2) ? 'gestor': 'visitant'),            
             'remember_token' => $this->remember_token,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
             "Spaces" => SpaceResource::collection($this->whenLoaded("spaces")),
             "Comments" => CommentResource::collection($this->whenLoaded("comments")),
             "Images" => ImageResource::collection($this->whenLoaded("images")),
