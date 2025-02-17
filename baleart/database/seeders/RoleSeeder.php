@@ -20,9 +20,9 @@ class RoleSeeder extends Seeder
         ];
 
         foreach ($roles as $role) {
-            $newrole = new Role();
-            $newrole->name = $role;
-            $newrole->save();
+            Role::create([
+                'name' => $role
+            ]);
         }
 
     }

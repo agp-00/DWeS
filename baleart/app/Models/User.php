@@ -14,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasApiTokens, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -24,15 +24,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'lastname',
-        'phone',
         'email',
         'password',
         'role_id',
-
-    ];
-
-    protected $guarded = [
-        'id',
     ];
 
     /**
@@ -41,10 +35,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'email_verified_at',
+        'password',
         'remember_token',
-        'created_at',
-        'updated_at',
     ];
 
     /**
@@ -75,20 +67,4 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
     
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($user) {
-            foreach ($user->comments as $comment) {
-                $comment->images()->delete();
-                $comment->delete();
-            }
-            foreach ($user->spaces as $space) {
-                $space->services()->detach();
-                $space->modalities()->detach();
-                $space->delete();
-            }
-        });
-    }
 }

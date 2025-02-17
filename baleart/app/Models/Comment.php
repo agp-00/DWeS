@@ -9,11 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-
-    protected $primaryKey = 'id';
-    protected $keyType = 'int';
-    public $timestamps = false;
-
     protected $fillable = [
         'comment',
         'score',
@@ -21,16 +16,6 @@ class Comment extends Model
         'user_id',
         'space_id',
     ];
-
-    protected $guarded = [
-        'id',
-    ];
-
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-    ];
-
 
     public function images()
     {

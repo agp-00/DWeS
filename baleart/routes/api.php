@@ -1,37 +1,33 @@
 <?php
 
+use App\Models\User;
+use App\Models\Space;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SpaceController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-
-Route::post('register', [RegisteredUserController::class, 'store']);
-
-Route::post('login', [AuthenticatedSessionController::class, 'store']);
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
-
-
-    Route::get('users', [UserController::class, 'index']);
-
-    Route::put('users/{identifier}', [UserController::class, 'update']);
-
-    Route::delete('users/{email}', [UserController::class, 'destroy']);
-
-    Route::get('users/{email}', [UserController::class, 'show']);
-
-
-
-    Route::post('spaces/{RegNumber}', [SpaceController::class, 'store']);
-
-    Route::get('spaces', [SpaceController::class, 'index']);
-
-    //Route::get('spaces/{illa}', [SpaceController::class, 'index']);
-
-    Route::get('spaces/{identifier}', [SpaceController::class, 'show']);
+// Noves rutes
+Route::bind('space', function ($value) {
+    return is_numeric($value)
+        ? Space::findOrFail($value) // Cerca pel camp 'id'
+        : Space::where('regNumber', $value)->firstOrFail(); // Cerca pel camp 'regNumber'
+});
+Route::bind('user', function ($value) {
+    return is_numeric($value)
+        ? User::findOrFail($value) // Cerca pel camp 'id'
+        : User::where('email', $value)->firstOrFail(); // Cerca pel camp 'email'
 });
 
+// Rutes sense autenticació
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware(['multi_auth'])->group(function () {
+    Route::apiresource('/space', SpaceController::class)->only(['index','show','store']);
+
+    Route::apiresource('/user', SpaceController::class)->only(['show','update','destroy']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+});

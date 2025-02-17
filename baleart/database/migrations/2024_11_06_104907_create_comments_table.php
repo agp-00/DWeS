@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('comment');
-            $table->integer('score');
+            $table->float('score');
             $table->enum('status', ['y', 'n'])->default('n');
             $table->foreignId('user_id')->constrained()->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('space_id')->constrained()->onUpdate('restrict')->onDelete('restrict');
@@ -26,17 +26,12 @@ return new class extends Migration
             AFTER INSERT ON comments
             FOR EACH ROW
             BEGIN
-            IF NEW.status = "y" THEN
-                UPDATE spaces
-                SET totalScore = totalScore + NEW.score,
-                    countScore = countScore + 1
-                WHERE id = NEW.space_id;
-            END IF;
-            IF NEW.status = "n" THEN
-                UPDATE spaces
-                SET totalScore = totalScore
-                WHERE id = NEW.space_id;
-            END IF;
+                IF (NEW.status = "y") THEN
+                    UPDATE spaces
+                    SET totalScore = totalScore + IFNULL(NEW.score, 0),
+                        countScore = countScore + 1
+                    WHERE id = NEW.space_id;
+                END IF;
             END;
         ');
 
@@ -45,18 +40,20 @@ return new class extends Migration
             AFTER UPDATE ON comments
             FOR EACH ROW
             BEGIN
-            IF NEW.status = "y" THEN
-                UPDATE spaces
-                SET totalScore = totalScore + NEW.score,
-                    countScore = countScore + 1
-                WHERE id = NEW.space_id;
-            END IF;
-            IF NEW.status = "n" THEN
-                UPDATE spaces
-                SET totalScore = totalScore - OLD.score,
-                    countScore = countScore - 1
-                WHERE id = NEW.space_id;
-            END IF;
+                IF (NEW.score != OLD.score) THEN
+                    SIGNAL SQLSTATE "45000"
+                    SET MESSAGE_TEXT = "No se puede modificar el valor de \'score\'.";
+                ELSEIF (OLD.status = "n") AND (NEW.status = "y") THEN
+                    UPDATE spaces
+                    SET totalScore = totalScore + IFNULL(NEW.score, 0),
+                        countScore = countScore + 1
+                    WHERE id = NEW.space_id;
+                ELSEIF (OLD.status = "y") AND (NEW.status = "n")  THEN
+                    UPDATE spaces
+                    SET totalScore = totalScore - IFNULL(NEW.score, 0),
+                        countScore = countScore - 1
+                    WHERE id = NEW.space_id;
+                END IF;
             END;
         ');
 
@@ -65,17 +62,12 @@ return new class extends Migration
             AFTER DELETE ON comments
             FOR EACH ROW
             BEGIN
-            IF OLD.status = "y" THEN
-                UPDATE spaces
-                SET totalScore = totalScore - OLD.score,
-                    countScore = countScore - 1
-                WHERE id = OLD.space_id;
-            END IF;
-            IF OLD.status = "n" THEN
-                UPDATE spaces
-                SET totalScore = totalScore
-                WHERE id = OLD.space_id;
-            END IF;
+                IF (OLD.status = "y") THEN
+                    UPDATE spaces
+                    SET totalScore = totalScore - IFNULL(OLD.score, 0),
+                        countScore = countScore - 1
+                    WHERE id = OLD.space_id;
+                END IF;
             END;
         ');
     }
