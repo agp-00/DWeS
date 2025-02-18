@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Modality;
-use App\Models\Service;
-use App\Models\Municipality;
 use App\Models\Space;
+use App\Models\Service;
+use App\Models\Modality;
+use App\Models\SpaceType;
+use App\Models\Municipality;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FilterController extends Controller
 {
@@ -34,6 +35,14 @@ class FilterController extends Controller
             ];
         });
 
+        $types = SpaceType::all()->map(function ($type) {
+            return [
+                'ca' => $type->description_CA,
+                'es' => $type->description_ES,
+                'en' => $type->description_EN,
+            ];
+        });
+
         // Definir las islas (esto puede ser un arreglo estático o provenir de una base de datos)
         $islands = [
             'Mallorca',
@@ -56,6 +65,7 @@ class FilterController extends Controller
             'modalities' => $modalities,
             'services' => $services,
             'islands' => $islands,
+            'types' => $types,
             'ratings' => $ratings,
             'average_rating' => $averageRating,  // Agregar el promedio de valoración global
         ]);
