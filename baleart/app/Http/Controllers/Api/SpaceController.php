@@ -16,39 +16,90 @@ class SpaceController extends Controller
 {
     public function index(Request $request)
     {
+        // Se obtiene el idioma para la presentación (por defecto 'ES')
+        $language = $request->query('language', 'ES');
+
         // Construcción de la consulta inicial con las relaciones necesarias
         $query = Space::with([
             "address",
             "address.municipality.island",
             "modalities",
             "services",
-            "spaceType",  // Es importante incluir 'spaceType' aquí
+            "spaceType",
             "comments",
             "comments.images",
             "user",
         ]);
 
-        // Aplicar filtro por 'illa' solo si el parámetro está presente
-        $query->when($request->illa, function ($q) use ($request) {
-            $q->whereHas(
-                'address.municipality.island',
-                function ($q) use ($request) {
-                    $q->where('name', $request->illa);
-                }
-            );
-        });
+        // Filtro por isla (usamos whereIn porque cada espacio tiene una sola isla)
+        if ($request->has('island')) {
+            $islands = explode(',', $request->island);
+            $query->whereHas('address.municipality.island', function ($q) use ($islands) {
+                $q->whereIn('name', $islands);
+            });
+        }
 
-        // Obtener los resultados
+        // Filtro por municipio (usamos whereIn porque cada espacio tiene un único municipio)
+        if ($request->has('municipality')) {
+            $municipalities = explode(',', $request->municipality);
+            $query->whereHas('address.municipality', function ($q) use ($municipalities) {
+                $q->whereIn('name', $municipalities);
+            });
+        }
+
+        // Filtro por modalidad: se añade una condición para cada modalidad seleccionada
+        if ($request->has('modality')) {
+            $modalities = explode(',', $request->modality);
+            foreach ($modalities as $modality) {
+                $query->whereHas('modalities', function ($q) use ($modality) {
+                    // Compara contra el campo 'name' (o 'ca' si prefieres, aquí se usa 'name')
+                    $q->where('name', $modality);
+                });
+            }
+        }
+
+        // Filtro por servicio: se añade una condición para cada servicio seleccionado
+        if ($request->has('service')) {
+            $services = explode(',', $request->service);
+            foreach ($services as $service) {
+                $query->whereHas('services', function ($q) use ($service) {
+                    $q->where('name', $service);
+                });
+            }
+        }
+
+        // Filtro por tipo de espacio: se añade una condición para cada tipo seleccionado
+        if ($request->has('spaceType')) {
+            $spaceTypes = explode(',', $request->spaceType);
+            foreach ($spaceTypes as $type) {
+                $query->whereHas('spaceType', function ($q) use ($type) {
+                    $q->where('name', $type);
+                });
+            }
+        }
+
+        // Filtro por rango de valoración (aplica solo si se modifican los valores predeterminados)
+        if (
+            ($request->has('ratingMin') && $request->input('ratingMin') != 0) ||
+            ($request->has('ratingMax') && $request->input('ratingMax') != 5)
+        ) {
+            $ratingMin = $request->input('ratingMin', 0);
+            $ratingMax = $request->input('ratingMax', 5);
+            $query->withAvg('comments', 'score')
+                  ->having('comments_avg_score', '>=', $ratingMin)
+                  ->having('comments_avg_score', '<=', $ratingMax);
+        }
+
+        // Obtener los resultados filtrados
         $spaces = $query->get();
 
-        // Convertir los tipos de espacios en el idioma correspondiente
-        $language = $request->query('language', 'ES'); // Por defecto 'ES'
+        // Para la presentación, se traduce el tipo de espacio según el idioma seleccionado
         $spaces->each(function ($space) use ($language) {
-            $space->tipus = $space->spaceType->{"description_{$language}"};  // Esto traduce el tipo de espacio según el idioma
+            $space->tipus = $space->spaceType->{"description_{$language}"};
         });
 
-        // Retornar la respuesta como una colección de recursos personalizados
-        return SpaceResource::collection($spaces)->additional(['meta' => 'Espacios mostrados correctamente']);
+        return SpaceResource::collection($spaces)
+               ->additional(['meta' => 'Espacios mostrados correctamente']);
     }
 
     public function show(Space $space, Request $request)
@@ -64,21 +115,19 @@ class SpaceController extends Controller
             'user',
         ]);
 
-        // Obtener el promedio de puntuación de los comentarios (si existe)
-        $averageScore = $space->calculaMitjana();  // Esto te dará el promedio de la columna 'score'
+        // Calcular el promedio de puntuación
+        $averageScore = $space->calculaMitjana();
 
-        // Obtener el idioma seleccionado (por defecto 'ES')
+        // Obtener el idioma para la presentación (por defecto 'ES')
         $language = $request->query('language', 'ES');
-        
 
-        // Convertir el tipo de espacio en el idioma correspondiente
-        $space->tipus = $space->spaceType->{"description_{$language}"};  // Aquí se hace la traducción de 'tipus'
+        // Asignar el tipo de espacio traducido para la presentación
+        $space->tipus = $space->spaceType->{"description_{$language}"};
 
-        // Retornar el espacio con el promedio de puntuación y las traducciones necesarias
         return (new SpaceResource($space))->additional([
             'meta' => [
                 'message' => 'Espacio mostrado correctamente',
-                'average_score' => $averageScore, // Agregar el promedio al response
+                'average_score' => $averageScore,
             ]
         ]);
     }
@@ -91,32 +140,30 @@ class SpaceController extends Controller
 
         foreach ($request->comments as $comment) {
             // Crear el comentario
-            $c = Comment::create(
-                [
-                    'comment' => $comment['comment'],
-                    'score' => $comment['score'],
-                    'user_id' => Auth::check()
-                        ? Auth::id()
-                        : ($request->has('email')
-                            ? User::where('email', $request->email)->first()->id
-                            : User::where('name', 'admin')->value('id')),
-                    'space_id' => $space_id,
-                ]
-            );
+            $c = Comment::create([
+                'comment' => $comment['comment'],
+                'score' => $comment['score'],
+                'user_id' => Auth::check()
+                    ? Auth::id()
+                    : ($request->has('email')
+                        ? User::where('email', $request->email)->first()->id
+                        : User::where('name', 'admin')->value('id')),
+                'space_id' => $space_id,
+            ]);
             $ncomentaris++;
 
             foreach ($comment['images'] as $image) {
                 // Crear la imagen asociada al comentario
-                $i = Image::create(
-                    [
-                        'comment_id' => $c->id,
-                        'url' => $image['url'],
-                    ]
-                );
+                $i = Image::create([
+                    'comment_id' => $c->id,
+                    'url' => $image['url'],
+                ]);
                 $nimatges++;
             }
         }
 
-        return response()->json(['meta' => $ncomentaris . ' comentarios creados correctamente con ' . $nimatges . ' imágenes']);
+        return response()->json([
+            'meta' => $ncomentaris . ' comentarios creados correctamente con ' . $nimatges . ' imágenes'
+        ]);
     }
 }
