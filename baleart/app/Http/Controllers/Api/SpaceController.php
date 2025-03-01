@@ -85,8 +85,8 @@ class SpaceController extends Controller
             $ratingMin = $request->input('ratingMin', 0);
             $ratingMax = $request->input('ratingMax', 5);
             $query->withAvg('comments', 'score')
-                  ->having('comments_avg_score', '>=', $ratingMin)
-                  ->having('comments_avg_score', '<=', $ratingMax);
+                ->having('comments_avg_score', '>=', $ratingMin)
+                ->having('comments_avg_score', '<=', $ratingMax);
         } else {
             // Aseguramos que, aunque no se filtre por rating, se obtenga el promedio en cada espacio.
             $query->withAvg('comments', 'score');
@@ -123,7 +123,7 @@ class SpaceController extends Controller
         });
 
         return SpaceResource::collection($orderedSpaces)
-               ->additional(['meta' => 'Espacios mostrados correctamente']);
+            ->additional(['meta' => 'Espacios mostrados correctamente']);
     }
 
     public function show(Space $space, Request $request)
@@ -182,4 +182,79 @@ class SpaceController extends Controller
             'meta' => $ncomentaris . ' comentarios creados correctamente con ' . $nimatges . ' imágenes'
         ]);
     }
+
+    public function update(Request $request, Space $space)
+{
+    try {
+        \Log::info('Datos recibidos para actualizar:', $request->all());
+
+        if ($space->user_id !== Auth::id()) {
+            return response()->json(['error' => 'No autorizado'], 403);
+        }
+
+        // Definir los idiomas permitidos
+        $allowedLanguages = ['ES', 'CA', 'EN'];
+        $observationField = null;
+
+        // Buscar qué campo de observación está presente y tiene contenido
+        foreach ($allowedLanguages as $lang) {
+            if ($request->filled("observation_$lang")) {
+                $observationField = "observation_$lang";
+                break;
+            }
+        }
+
+        // Validar los datos, pero permitir que los campos sean opcionales
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'website' => 'nullable|string',
+            'email' => 'nullable|string|email',
+            'phone' => 'nullable|string|max:20',
+        ]);
+
+        // Aplicar los cambios solo si el campo no está vacío
+        if ($request->filled('name')) {
+            $space->name = $validated['name'];
+        }
+        if ($observationField && $request->filled($observationField)) {
+            $space->$observationField = $request->input($observationField);
+        }
+        if ($request->filled('website')) {
+            $space->website = $validated['website'];
+        }
+        if ($request->filled('email')) {
+            $space->email = $validated['email'];
+        }
+        if ($request->filled('phone')) {
+            $space->phone = $validated['phone'];
+        }
+
+        // Si al menos un campo se ha actualizado, guardar los cambios
+        if ($space->isDirty()) {
+            $space->save();
+            \Log::info('Espacio actualizado correctamente:', $space->toArray());
+        } else {
+            \Log::warning('No se realizó ninguna actualización porque no hubo cambios.');
+        }
+
+        return response()->json([
+            'message' => 'Espacio actualizado correctamente',
+            'data' => $space
+        ], 200);
+
+    } catch (\Exception $e) {
+        \Log::error('Error en la actualización:', ['error' => $e->getMessage()]);
+        return response()->json([
+            'error' => 'Error interno en el servidor',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
+
+
+
+
+
 }

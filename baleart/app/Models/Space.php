@@ -12,6 +12,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Space extends Model
 {
+  protected $fillable = [
+    'name',
+    'phone',
+    'email',
+    'website',  
+  ]; 
+
     public function address()
     {
         return $this->belongsTo(Address::class);

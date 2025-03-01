@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/spaces/{space}/comments', [CommentController::class, 'store']);
 
     // Endpoints para manejar espacios
-    Route::apiResource('/space', SpaceController::class)->only(['index','show','store']);
+    Route::apiResource('/space', SpaceController::class)->only(['index','show','store', 'update']);
 
     // Endpoints para el usuario
     Route::apiResource('/user', UserController::class)->only(['show','update','destroy']);
