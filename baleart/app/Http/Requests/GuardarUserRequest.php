@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class GuardarUserRequest extends FormRequest
 {
@@ -22,10 +24,10 @@ class GuardarUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'      => 'required|string|max:255',
-            'lastname'  => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
             //'email'     => 'required|string|max:255|unique:users',
-            'password'  => 'required|string',
+            'password' => 'required|string',
         ];
     }
 
@@ -38,4 +40,14 @@ class GuardarUserRequest extends FormRequest
             'title.max' => "maxim 255 car",
         ];
     }
+
+
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'errors' => $validator->errors(),
+        ], 422));
+    }
+
 }

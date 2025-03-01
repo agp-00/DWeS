@@ -8,30 +8,40 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SpaceController;
 use App\Http\Controllers\Api\FilterController;
+use App\Http\Controllers\Api\CommentController;
 
-// Noves rutes
+// Binding personalizado para "space" y "user"
 Route::bind('space', function ($value) {
     return is_numeric($value)
-        ? Space::findOrFail($value) // Cerca pel camp 'id'
-        : Space::where('regNumber', $value)->firstOrFail(); // Cerca pel camp 'regNumber'
+        ? Space::findOrFail($value) // Busca por 'id'
+        : Space::where('regNumber', $value)->firstOrFail(); // Busca por 'regNumber'
 });
+
 Route::bind('user', function ($value) {
     return is_numeric($value)
-        ? User::findOrFail($value) // Cerca pel camp 'id'
-        : User::where('email', $value)->firstOrFail(); // Cerca pel camp 'email'
+        ? User::findOrFail($value) // Busca por 'id'
+        : User::where('email', $value)->firstOrFail(); // Busca por 'email'
 });
 
+// Ruta pública para obtener filtros
 Route::get('/filters', [FilterController::class, 'getFilters']);
 
-
-// Rutes sense autenticació
+// Rutas públicas sin autenticación
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware(['multi_auth'])->group(function () {
-    Route::apiresource('/space', SpaceController::class)->only(['index','show','store']);
+// Rutas protegidas con autenticación usando Sanctum
+Route::middleware('auth:sanctum')->group(function () {
 
-    Route::apiresource('/user', SpaceController::class)->only(['show','update','destroy']);
+    Route::post('/spaces/{space}/comments', [CommentController::class, 'store']);
 
+    // Endpoints para manejar espacios
+    Route::apiResource('/space', SpaceController::class)->only(['index','show','store']);
+
+    // Endpoints para el usuario
+    Route::apiResource('/user', UserController::class)->only(['show','update','destroy']);
+
+    // Cierre de sesión
     Route::post('/logout', [AuthController::class, 'logout']);
-});
+})
+;

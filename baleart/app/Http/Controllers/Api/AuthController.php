@@ -20,6 +20,7 @@ class AuthController extends Controller
         'lastname'  => 'required|string|max:255',
         'email'     => 'required|string|max:255|unique:users',
         'password'  => 'required|string|confirmed',
+        'phone'     => 'required|string|max:20',  // Regla per al telèfon
       ]);
         
       if ($validator->fails()) {
@@ -30,6 +31,7 @@ class AuthController extends Controller
         'name' => $request->name,
         'lastname' => $request->lastname,
         'email' => $request->email,
+        'phone' => $request->phone,           // Desa el telèfon
         'email_verified_at' => now(),
         'password'  => Hash::make($request->password),
         'role_id'   => Role::where('name', 'visitant')->value('id'),
@@ -37,16 +39,17 @@ class AuthController extends Controller
 
       event(new Registered($user));
 
-      $token = $user->createToken('auth_token')->plainTextToken;  // Crea el token en la taula 'personal_acces_tokens'
+      $token = $user->createToken('auth_token')->plainTextToken;
       
       return response()->json([
         'access_token' => $token,
         'token_type' => 'Bearer',
-        'user' => $user,
+        'user' => $user,  // Retorna l'objecte complet de l'usuari
         'status' => 'Register successful',
       ]);
     }
 
+    // login i logout es mantenen igual
     public function login(Request $request) {
         $request->validate([
           'email'     => 'required|string|max:255|email',
@@ -70,8 +73,6 @@ class AuthController extends Controller
 
     public function logout(Request $request) {
         $request->user()->currentAccessToken()->delete();
-
         return response()->json(['message' => 'Logout successful']);
     }
-
 }

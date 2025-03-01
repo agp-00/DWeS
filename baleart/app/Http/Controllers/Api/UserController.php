@@ -22,6 +22,8 @@ class UserController extends Controller
 
     public function update(GuardarUserRequest $request, User $user)
     {
+        \Log::info('Ejecutando método update en UserController', ['user_id' => $user->id]);
+
         // MODIFICACIÓ DE LES DADES
         try {
             $user->update($request->all());

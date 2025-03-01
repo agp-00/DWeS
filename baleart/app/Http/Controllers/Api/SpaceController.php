@@ -52,7 +52,6 @@ class SpaceController extends Controller
             $modalities = explode(',', $request->modality);
             foreach ($modalities as $modality) {
                 $query->whereHas('modalities', function ($q) use ($modality) {
-                    // Compara contra el campo 'name' (o 'ca' si prefieres, aquí se usa 'name')
                     $q->where('name', $modality);
                 });
             }
@@ -88,23 +87,47 @@ class SpaceController extends Controller
             $query->withAvg('comments', 'score')
                   ->having('comments_avg_score', '>=', $ratingMin)
                   ->having('comments_avg_score', '<=', $ratingMax);
+        } else {
+            // Aseguramos que, aunque no se filtre por rating, se obtenga el promedio en cada espacio.
+            $query->withAvg('comments', 'score');
         }
 
         // Obtener los resultados filtrados
         $spaces = $query->get();
 
+        // Si no se encontraron espacios, retornar error
+        if ($spaces->isEmpty()) {
+            return response()->json([
+                'error' => 'No se encontraron espacios que cumplan con los filtros'
+            ], 404);
+        }
+
+        // Separar espacios en dos grupos:
+        // - Los de alta valoración (por ejemplo, rating >= 4)
+        // - Los demás
+        $highRatingThreshold = 3; // Puedes ajustar este valor
+        $topRated = $spaces->filter(function ($space) use ($highRatingThreshold) {
+            return $space->comments_avg_score >= $highRatingThreshold;
+        })->shuffle();
+
+        $others = $spaces->filter(function ($space) use ($highRatingThreshold) {
+            return $space->comments_avg_score < $highRatingThreshold;
+        })->shuffle();
+
+        // Unir los dos grupos, primero los de alta valoración y luego el resto
+        $orderedSpaces = $topRated->merge($others);
+
         // Para la presentación, se traduce el tipo de espacio según el idioma seleccionado
-        $spaces->each(function ($space) use ($language) {
+        $orderedSpaces->each(function ($space) use ($language) {
             $space->tipus = $space->spaceType->{"description_{$language}"};
         });
 
-        return SpaceResource::collection($spaces)
+        return SpaceResource::collection($orderedSpaces)
                ->additional(['meta' => 'Espacios mostrados correctamente']);
     }
 
     public function show(Space $space, Request $request)
     {
-        // Cargar las relaciones necesarias
         $space->load([
             'address',
             'modalities',
@@ -115,13 +138,8 @@ class SpaceController extends Controller
             'user',
         ]);
 
-        // Calcular el promedio de puntuación
         $averageScore = $space->calculaMitjana();
-
-        // Obtener el idioma para la presentación (por defecto 'ES')
         $language = $request->query('language', 'ES');
-
-        // Asignar el tipo de espacio traducido para la presentación
         $space->tipus = $space->spaceType->{"description_{$language}"};
 
         return (new SpaceResource($space))->additional([
@@ -139,7 +157,6 @@ class SpaceController extends Controller
         $nimatges = 0;
 
         foreach ($request->comments as $comment) {
-            // Crear el comentario
             $c = Comment::create([
                 'comment' => $comment['comment'],
                 'score' => $comment['score'],
@@ -153,7 +170,6 @@ class SpaceController extends Controller
             $ncomentaris++;
 
             foreach ($comment['images'] as $image) {
-                // Crear la imagen asociada al comentario
                 $i = Image::create([
                     'comment_id' => $c->id,
                     'url' => $image['url'],
